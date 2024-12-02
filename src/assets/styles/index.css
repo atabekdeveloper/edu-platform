@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Roboto Mono', monospace;
+}
+input[type='file'] {
+  width: 100%;
+  &::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #2356ce;
+    padding: 5px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+  &::file-selector-button:hover {
+    background: #2356ce;
+  }
+}

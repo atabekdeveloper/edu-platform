@@ -1,0 +1,52 @@
+/* Drawer */
+.ant-drawer-body {
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+.ant-drawer-content-wrapper {
+  box-shadow: none !important;
+}
+
+.ant-drawer-header {
+  padding: 10px 0 !important;
+  margin-bottom: 10px !important;
+}
+
+.ant-drawer-header-title {
+  align-items: self-end !important;
+}
+
+.ant-drawer-footer {
+  padding: 8px 0 !important;
+}
+
+/* Input Number */
+.ant-input-number-group-wrapper,
+.ant-input-number {
+  width: 100% !important;
+}
+
+/* Menu */
+.ant-menu {
+  border-inline-end: none !important;
+}
+
+.ant-menu-item-group-title,
+.ant-menu-item-selected .ant-menu-title-content {
+  font-weight: 500 !important;
+}
+
+/* Table */
+
+/* Pagination */
+.ant-pagination {
+  background-color: #fff !important;
+  padding: 12px 10px !important;
+  border-radius: 0 0 8px 8px !important;
+  margin: 0 !important;
+}
+
+.ant-pagination-options {
+  display: none !important;
+}
