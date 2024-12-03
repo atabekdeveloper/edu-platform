@@ -3,7 +3,6 @@ import React from 'react';
 import { FiSettings } from 'react-icons/fi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UiMenu } from 'src/components/ui';
-import { useAuthLogoutMutation } from 'src/services/index.api';
 import { useAuthPersistStore } from 'src/store';
 
 import { routes } from './routes';
@@ -13,20 +12,15 @@ const HeaderSetting: React.FC = () => {
   const { pathname } = useLocation();
   const signOut = useAuthPersistStore((state) => state.signOut);
   const [open, setOpen] = React.useState(false);
-  const { mutate: logout, isSuccess } = useAuthLogoutMutation();
 
   const onSelectMenuItem = (key: string) => {
     if (key === '/logout') {
-      logout();
+      signOut();
     } else {
       navigate(key);
       setOpen(false);
     }
   };
-
-  React.useEffect(() => {
-    if (isSuccess) signOut();
-  }, [isSuccess, signOut]);
 
   const content = (
     <div className="w-[300px] p-1">
