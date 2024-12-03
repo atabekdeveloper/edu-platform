@@ -15,7 +15,8 @@ const GlobalTable: React.FC<TableProps<any>> = (_props) => {
     if (
       e.target?.tagName === 'BUTTON' ||
       e.target?.tagName === 'svg' ||
-      e.target?.tagName === 'path'
+      e.target?.tagName === 'path' ||
+      e.target?.tagName === 'A'
     ) {
       return;
     } else if (pathname === '/admins') {
