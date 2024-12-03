@@ -5,7 +5,7 @@ import { useResponsive } from 'src/hooks';
 import { useFormStorageStore } from 'src/store';
 import uniqid from 'uniqid';
 
-const UiTable: React.FC<TableProps<any>> = (_props) => {
+const GlobalTable: React.FC<TableProps<any>> = (_props) => {
   const { isMobile } = useResponsive(700);
   const { pathname } = useLocation();
 
@@ -41,4 +41,4 @@ const UiTable: React.FC<TableProps<any>> = (_props) => {
   );
 };
 
-export { UiTable };
+export { GlobalTable };
