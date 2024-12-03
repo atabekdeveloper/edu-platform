@@ -41,6 +41,7 @@ const GlobalModal: React.FC<IGlobalModalState & ModalProps> = ({
       centered
       closeIcon={<IoCloseOutline />}
       title={paramsForm ? 'Изменить' : 'Добавить'}
+      className="my-4"
       footer={
         <div className="flex flex-col gap-3 pt-3 border-t border-[#D9D9D9]">
           <Button type="primary" onClick={form.submit} loading={isLoading}>
