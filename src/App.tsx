@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const token = useAuthPersistStore((state) => state.accessToken);
 
   React.useEffect(() => {
-    if (token && pathname === '/login') navigate('/');
+    if (token && pathname === '/login') navigate('/users');
   }, [navigate, pathname, token]);
   return (
     <Routes>

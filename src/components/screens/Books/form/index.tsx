@@ -1,9 +1,13 @@
-import { Form, Input, Select } from 'antd';
+import type { InputRef } from 'antd';
+import { Button, Divider, Form, Input, Select } from 'antd';
 import React from 'react';
-import { GlobalModal } from 'src/components/shareds';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { FileInput, GlobalModal } from 'src/components/shareds';
 import { TBookChange } from 'src/services/book/book.types';
 import {
   useCreateBookMutation,
+  useCreateCategoryMutation,
+  useCreateTagMutation,
   useGetCategoriesQuery,
   useGetTagsQuery,
   useUpdateBookMutation,
@@ -12,17 +16,17 @@ import { useFormStorageStore } from 'src/store';
 
 const BooksForm: React.FC = () => {
   const [form] = Form.useForm();
-  const [uploadImageFile, setUploadImageFile] = React.useState<string>('');
-  const [uploadPdfFile, setUploadPdfFile] = React.useState<string>('');
-  const [uploadWorkPdfFile, setUploadWorkPdfFile] = React.useState<string>('');
   const paramsForm = useFormStorageStore((state) => state.paramsForm);
+  const inputRef = React.useRef<InputRef>(null);
+  const [name, setName] = React.useState('');
+  const [files, setFiles] = React.useState({
+    image: '',
+    pdf: '',
+    workPdf: '',
+  });
 
   const { data: tags } = useGetTagsQuery({ count: 100, page: 1 });
   const { data: category } = useGetCategoriesQuery({ count: 100, page: 1 });
-
-  const onChangeUploadImage = (e: any) => setUploadImageFile(e.target.files[0]);
-  const onChangeUploadPdf = (e: any) => setUploadPdfFile(e.target.files[0]);
-  const onChangeUploadWorkPdf = (e: any) => setUploadWorkPdfFile(e.target.files[0]);
 
   const {
     mutate: createBook,
@@ -30,28 +34,52 @@ const BooksForm: React.FC = () => {
     isError: createError,
   } = useCreateBookMutation();
   const { mutate: editBook, isLoading: editLoading, isError: editError } = useUpdateBookMutation();
+  const {
+    mutate: createTag,
+    isSuccess: tagSuccess,
+    isLoading: tagLoading,
+  } = useCreateTagMutation();
+  const {
+    mutate: createCategory,
+    isSuccess: categorySuccess,
+    isLoading: categoryLoading,
+  } = useCreateCategoryMutation();
+
+  const handleFileChange = (key: keyof typeof files) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFiles((prev) => ({ ...prev, [key]: e.target.files?.[0] || '' }));
+
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  const addItem = (type: string) => {
+    if (type === 'tag') createTag({ name });
+    if (type === 'category') createCategory({ name });
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
 
   const onFinish = (values: TBookChange) => {
-    if (paramsForm) {
-      editBook({ ...values, _id: paramsForm._id, image: uploadImageFile });
-      return;
-    }
-    createBook({
-      ...values,
-      image: uploadImageFile,
-      book: uploadPdfFile,
-      workBook: uploadWorkPdfFile,
-    });
+    const payload = { ...values, image: files.image, book: files.pdf, workBook: files.workPdf };
+    if (paramsForm) editBook({ ...values, _id: paramsForm._id, image: files.image });
+    else createBook(payload);
   };
 
   React.useEffect(() => {
-    if (paramsForm)
+    if (paramsForm) {
       form.setFieldsValue({
         ...paramsForm,
         categoryId: paramsForm.category._id,
         tagIds: paramsForm.tags.map((el: any) => el._id),
       });
-  }, [paramsForm]);
+    }
+  }, [paramsForm, form]);
+
+  React.useEffect(() => {
+    if (tagSuccess || categorySuccess) setName('');
+  }, [tagSuccess, categorySuccess]);
+
   return (
     <GlobalModal
       form={form}
@@ -59,7 +87,8 @@ const BooksForm: React.FC = () => {
       isError={createError || editError}
       width={500}
     >
-      <Form name="Books Form" form={form} onFinish={onFinish} autoComplete="off" layout="vertical">
+      <Form form={form} onFinish={onFinish} autoComplete="off" layout="vertical">
+        {/* Input Section */}
         <div className="flex gap-2">
           <Form.Item
             className="w-full"
@@ -69,12 +98,7 @@ const BooksForm: React.FC = () => {
           >
             <Input.TextArea autoSize />
           </Form.Item>
-          <Form.Item
-            className="w-full"
-            name="description"
-            label="Описание"
-            rules={[{ required: false, message: '' }]}
-          >
+          <Form.Item className="w-full" name="description" label="Описание">
             <Input.TextArea autoSize />
           </Form.Item>
         </div>
@@ -96,56 +120,93 @@ const BooksForm: React.FC = () => {
             <Input.TextArea autoSize />
           </Form.Item>
         </div>
-        <Form.Item
-          className="w-full"
-          name="categoryId"
-          label="Категория"
-          rules={[{ required: true, message: '' }]}
-        >
+        {/* Select Section */}
+        <Form.Item name="videos" label="Видео" rules={[{ required: false, message: '' }]}>
+          <Select mode="tags" placeholder="Добавьте несколько..." />
+        </Form.Item>
+        <Form.Item name="categoryId" label="Категория" rules={[{ required: true, message: '' }]}>
           <Select
+            showSearch
+            optionFilterProp="label"
             placeholder="Выберите Категорию"
             options={category?.data.map((el) => ({ value: el._id, label: el.name }))}
+            dropdownRender={(menu) => (
+              <>
+                {menu}
+                <Divider className="my-2" />
+                <div className="flex gap-2 p-2">
+                  <Input
+                    placeholder="Пожалуйста, введите категорию"
+                    ref={inputRef}
+                    value={name}
+                    onChange={onNameChange}
+                    onKeyDown={(e) => e.stopPropagation()}
+                  />
+                  <Button
+                    icon={<AiOutlinePlus />}
+                    onClick={() => addItem('category')}
+                    loading={categoryLoading}
+                    disabled={!name}
+                  >
+                    Добавить категорию
+                  </Button>
+                </div>
+              </>
+            )}
           />
         </Form.Item>
-        <Form.Item
-          className="w-full"
-          name="videos"
-          label="Видео"
-          rules={[{ required: false, message: '' }]}
-        >
-          <Select mode="tags" placeholder="Выберите несколько..." />
-        </Form.Item>
-        <Form.Item
-          className="w-full"
-          name="tagIds"
-          label="Теги"
-          rules={[{ required: true, message: '' }]}
-        >
+        <Form.Item name="tagIds" label="Теги" rules={[{ required: true, message: '' }]}>
           <Select
-            mode="tags"
-            placeholder="Выберите несколько..."
+            mode="multiple"
+            placeholder="Выберите Теги"
+            optionFilterProp="label"
             options={tags?.data.map((el) => ({ value: el._id, label: el.name }))}
+            dropdownRender={(menu) => (
+              <>
+                {menu}
+                <Divider className="my-2" />
+                <div className="flex gap-2 p-2">
+                  <Input
+                    placeholder="Пожалуйста, введите тег"
+                    ref={inputRef}
+                    value={name}
+                    onChange={onNameChange}
+                    onKeyDown={(e) => e.stopPropagation()}
+                  />
+                  <Button
+                    icon={<AiOutlinePlus />}
+                    onClick={() => addItem('tag')}
+                    loading={tagLoading}
+                    disabled={!name}
+                  >
+                    Добавить тег
+                  </Button>
+                </div>
+              </>
+            )}
           />
         </Form.Item>
-        <Form.Item label="Фото" name="image" rules={[{ required: false, message: '' }]}>
-          <input onChange={onChangeUploadImage} accept=".jpg, .jpeg, .png" type="file" />
-        </Form.Item>
-        <Form.Item
-          hidden={paramsForm}
+        {/* File Upload Section */}
+        <FileInput
+          label="Фото"
+          name="image"
+          accept=".jpg, .jpeg, .png"
+          onChange={handleFileChange('image')}
+        />
+        <FileInput
           label="Основная книга"
           name="book"
-          rules={[{ required: false, message: '' }]}
-        >
-          <input onChange={onChangeUploadPdf} accept=".pdf" type="file" />
-        </Form.Item>
-        <Form.Item
-          hidden={paramsForm}
+          accept=".pdf"
+          hidden={!!paramsForm}
+          onChange={handleFileChange('pdf')}
+        />
+        <FileInput
           label="Рабочая книга"
           name="workBook"
-          rules={[{ required: false, message: '' }]}
-        >
-          <input onChange={onChangeUploadWorkPdf} accept=".pdf" type="file" />
-        </Form.Item>
+          accept=".pdf"
+          hidden={!!paramsForm}
+          onChange={handleFileChange('workPdf')}
+        />
       </Form>
     </GlobalModal>
   );

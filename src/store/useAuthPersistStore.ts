@@ -6,7 +6,8 @@ import { TRoleItemTypes } from 'src/services/index.types';
 interface IAuthPerisistState {
   accessToken: string | null;
   roleName: TRoleItemTypes | null;
-  signIn: (tokens: { accessToken: string; roleName: TRoleItemTypes }) => void;
+  phone: string | null;
+  signIn: (tokens: { accessToken: string; roleName: TRoleItemTypes; phone: string }) => void;
   signOut: () => void;
 }
 
@@ -15,8 +16,9 @@ export const useAuthPersistStore = create(
     (set) => ({
       accessToken: '',
       roleName: null,
-      signIn: ({ accessToken, roleName }) => set({ accessToken, roleName }),
-      signOut: () => set({ accessToken: null, roleName: null }),
+      phone: '',
+      signIn: ({ accessToken, roleName, phone }) => set({ accessToken, roleName, phone }),
+      signOut: () => set({ accessToken: null, roleName: null, phone: null }),
     }),
     {
       name: 'token',

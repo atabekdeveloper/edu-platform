@@ -15,7 +15,6 @@ const BooksTable: React.FC = () => {
     page: currentPage,
   });
 
-  const setParamsForm = useFormStorageStore((state) => state.setParamsForm);
   const toggleModal = useFormStorageStore((state) => state.toggleModal);
 
   return (
@@ -23,9 +22,6 @@ const BooksTable: React.FC = () => {
       dataSource={books?.data}
       columns={columns}
       loading={isLoading}
-      onRow={(data) => ({
-        onClickCapture: (e: any) => e.target?.tagName === 'TD' && setParamsForm(data),
-      })}
       title={() => (
         <GlobalHead
           title="Книги"
