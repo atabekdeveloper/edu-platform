@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { GlobalHead } from 'src/components/shareds';
-import { UiButton, UiTable } from 'src/components/ui';
+import { GlobalHead, GlobalTable } from 'src/components/shareds';
+import { UiButton } from 'src/components/ui';
 import { useGetBooksQuery } from 'src/services/index.api';
 import { useFormStorageStore } from 'src/store';
 
@@ -18,7 +18,7 @@ const BooksTable: React.FC = () => {
   const toggleModal = useFormStorageStore((state) => state.toggleModal);
 
   return (
-    <UiTable
+    <GlobalTable
       dataSource={books?.data}
       columns={columns}
       loading={isLoading}

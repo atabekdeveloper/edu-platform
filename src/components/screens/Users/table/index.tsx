@@ -1,6 +1,5 @@
 import React from 'react';
-import { GlobalHead } from 'src/components/shareds';
-import { UiTable } from 'src/components/ui';
+import { GlobalHead, GlobalTable } from 'src/components/shareds';
 
 import { useGetUsersQuery } from 'src/services/index.api';
 import { useColumnsTable } from './useColumnsTable';
@@ -14,7 +13,7 @@ const UsersTable: React.FC = () => {
   });
 
   return (
-    <UiTable
+    <GlobalTable
       dataSource={users?.data}
       columns={columns}
       loading={isLoading}

@@ -24,3 +24,8 @@ export type TBookChange = {
   image: string;
   tagIds?: number[];
 };
+export type TBookItemParams = {
+  title: string;
+  author: string;
+  categoryId: string;
+};
