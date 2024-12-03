@@ -23,9 +23,13 @@ const AuthLogin: React.FC = () => {
   useEffect(() => {
     if (isSuccess && loginData) {
       const { token } = loginData.meta;
-      signIn({ accessToken: token?.access as string, roleName: loginData.data.role });
+      signIn({
+        accessToken: token?.access as string,
+        roleName: loginData.data.role,
+        phone: loginData.data.phone,
+      });
       form.resetFields();
-      navigate('/');
+      navigate('/users');
     }
   }, [isSuccess, loginData, signIn, navigate, form]);
 

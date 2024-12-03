@@ -6,6 +6,6 @@ export type TTagItem = {
   bookCount: number;
 };
 export type TTagChange = {
-  _id: string;
+  _id?: string;
   name: string;
 };

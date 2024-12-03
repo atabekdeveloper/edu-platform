@@ -6,6 +6,6 @@ export type TCategoryItem = {
   bookCount: number;
 };
 export type TCategoryChange = {
-  _id: string;
+  _id?: string;
   name: string;
 };

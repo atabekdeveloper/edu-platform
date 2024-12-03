@@ -2,21 +2,23 @@ import { Button, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { MdDeleteOutline } from 'react-icons/md';
 import { TBookItem } from 'src/services/book/book.types';
-import { useDeleteCategoryMutation } from 'src/services/index.api';
+import { useDeleteBookMutation } from 'src/services/index.api';
 
 export const useColumnsTable = () => {
-  const { mutate: deleteCategory } = useDeleteCategoryMutation();
+  const { mutate: deleteBook } = useDeleteBookMutation();
   const columns: ColumnsType<TBookItem> = [
     {
       title: 'Название',
       dataIndex: 'title',
       key: 'title',
+      ellipsis: true,
       render: (value) => value || '-',
     },
     {
       title: 'Описание',
       dataIndex: 'description',
       key: 'description',
+      ellipsis: true,
       render: (value) => value || '-',
     },
     {
@@ -41,7 +43,13 @@ export const useColumnsTable = () => {
       title: 'Теги',
       dataIndex: 'tags',
       key: 'tags',
-      render: (_, r) => r.tags.map((tag) => <Tag key={tag._id}>{tag.name}</Tag>),
+      render: (_, r) => (
+        <div className="flex flex-wrap gap-1">
+          {r.tags.map((tag) => (
+            <Tag key={tag._id}>{tag.name}</Tag>
+          ))}
+        </div>
+      ),
     },
     {
       title: 'Фото',
@@ -83,7 +91,7 @@ export const useColumnsTable = () => {
           type="primary"
           danger
           icon={<MdDeleteOutline />}
-          onClick={() => deleteCategory(r._id)}
+          onClick={() => deleteBook(r._id)}
         />
       ),
     },

@@ -8,13 +8,13 @@ export const routes: MenuProps['items'] = [
     style: { margin: '15px 0' },
   },
   {
-    key: '/profile',
-    label: 'Account settings',
+    key: '/password',
+    label: 'Изменить пароль',
     icon: <FiSettings />,
   },
   {
     key: '/logout',
-    label: 'Logout',
+    label: 'Выход',
     icon: <LuLogOut />,
   },
 ];

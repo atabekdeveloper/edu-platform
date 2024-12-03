@@ -17,7 +17,7 @@ export const fetchCreateBook = async (values: TBookChange): Promise<SRO<TBookCha
   return res.data;
 };
 export const fetchUpdateBook = async (values: TBookChange): Promise<SRO<TBookChange>> => {
-  const res = await api.patch(
+  const res = await api.put(
     `/book/${values._id}`,
     removeProperties(values, ['_id', values.image ? '' : 'image']),
     {
