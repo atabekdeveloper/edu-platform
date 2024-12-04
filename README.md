@@ -1,1 +1,1 @@
-# FrontEnd EDU
+# FrontEnd EDU Platform
