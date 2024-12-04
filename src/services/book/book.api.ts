@@ -4,8 +4,9 @@ import { TGetParamsChange } from 'src/services/index.types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { fetchCreateBook, fetchDeleteBook, fetchGetBooks, fetchUpdateBook } from './book.services';
+import { TBookItemParams } from './book.types';
 
-const useGetBooksQuery = (params: TGetParamsChange) =>
+const useGetBooksQuery = (params: TGetParamsChange & TBookItemParams) =>
   useQuery({
     queryFn: () => fetchGetBooks(params),
     queryKey: ['book', ...Object.values(params)],

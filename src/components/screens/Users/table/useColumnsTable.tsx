@@ -1,12 +1,13 @@
 import { Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { MdDeleteOutline } from 'react-icons/md';
+import { GlobalPopConfirm } from 'src/components/shareds';
 import { useDeleteUserMutation } from 'src/services/index.api';
 
 import { TUserItem } from 'src/services/user/user.types';
 
 export const useColumnsTable = () => {
-  const { mutate: deleteUser } = useDeleteUserMutation();
+  const { mutate: deleteUser, isLoading } = useDeleteUserMutation();
   const columns: ColumnsType<TUserItem> = [
     {
       title: 'ИД',
@@ -50,13 +51,14 @@ export const useColumnsTable = () => {
       dataIndex: 'action',
       key: 'action',
       render: (_, r) => (
-        <Button
-          key={r._id}
-          type="primary"
-          danger
-          icon={<MdDeleteOutline />}
-          onClick={() => deleteUser(r._id)}
-        />
+        <GlobalPopConfirm
+          title="Удалить пользователь"
+          description="Вы уверены, что хотите удалить эту пользователь?"
+          onConfirm={() => deleteUser(r._id)}
+          loading={isLoading}
+        >
+          <Button type="primary" danger icon={<MdDeleteOutline />} />
+        </GlobalPopConfirm>
       ),
     },
   ];

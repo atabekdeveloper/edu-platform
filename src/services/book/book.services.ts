@@ -2,11 +2,13 @@ import { api } from 'src/api';
 
 import { SR, SRO, TGetParamsChange, TMessage } from 'src/services/index.types';
 import { removeProperties } from 'src/utils';
-import { TBookChange, TBookItem } from './book.types';
+import { TBookChange, TBookItem, TBookItemParams } from './book.types';
 
-export const fetchGetBooks = async (params: TGetParamsChange): Promise<SR<TBookItem>> => {
+export const fetchGetBooks = async (
+  params: TGetParamsChange & TBookItemParams,
+): Promise<SR<TBookItem>> => {
   const res = await api.get('/book', {
-    params: { count: 10, page: params.page },
+    params: { ...params, count: 10, page: params.page },
   });
   return res.data;
 };
