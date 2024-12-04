@@ -121,7 +121,7 @@ const BooksForm: React.FC = () => {
           </Form.Item>
         </div>
         {/* Select Section */}
-        <Form.Item name="videos" label="Видео" rules={[{ required: false, message: '' }]}>
+        <Form.Item name="videos" label="Видео" rules={[{ required: true, message: '' }]}>
           <Select mode="tags" placeholder="Добавьте несколько..." />
         </Form.Item>
         <Form.Item name="categoryId" label="Категория" rules={[{ required: true, message: '' }]}>
