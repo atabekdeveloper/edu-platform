@@ -2,10 +2,14 @@ export type TCategoryItem = {
   _id: string;
   createdAt: string;
   lastUpdatedAt: string;
-  name: string;
+  nameUz: string;
+  nameRu: string;
+  nameEng: string;
   bookCount: number;
 };
 export type TCategoryChange = {
   _id?: string;
-  name: string;
+  nameUz: string;
+  nameRu: string;
+  nameEng: string;
 };

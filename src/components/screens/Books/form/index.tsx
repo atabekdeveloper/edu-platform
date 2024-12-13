@@ -1,29 +1,23 @@
-import type { InputRef } from 'antd';
-import { Button, Divider, Form, Input, Select } from 'antd';
+import { Form, Input, InputNumber, Select } from 'antd';
 import React from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { useTranslation } from 'react-i18next';
 import { FileInput, GlobalModal } from 'src/components/shareds';
 import { TBookChange } from 'src/services/book/book.types';
 import {
   useCreateBookMutation,
-  useCreateCategoryMutation,
-  useCreateTagMutation,
   useGetCategoriesQuery,
   useGetTagsQuery,
   useUpdateBookMutation,
 } from 'src/services/index.api';
-import { useFormStorageStore } from 'src/store';
+import { useFormStorageStore, useLangPersistStore } from 'src/store';
+import { handleNumericInputKeyDown } from 'src/utils';
 
 const BooksForm: React.FC = () => {
   const [form] = Form.useForm();
   const paramsForm = useFormStorageStore((state) => state.paramsForm);
-  const inputRef = React.useRef<InputRef>(null);
-  const [name, setName] = React.useState('');
-  const [files, setFiles] = React.useState({
-    image: '',
-    pdf: '',
-    workPdf: '',
-  });
+  const lang = useLangPersistStore((state) => state.lang);
+
+  const { t } = useTranslation();
 
   const { data: tags } = useGetTagsQuery({ count: 100, page: 1 });
   const { data: category } = useGetCategoriesQuery({ count: 100, page: 1 });
@@ -34,35 +28,15 @@ const BooksForm: React.FC = () => {
     isError: createError,
   } = useCreateBookMutation();
   const { mutate: editBook, isLoading: editLoading, isError: editError } = useUpdateBookMutation();
-  const {
-    mutate: createTag,
-    isSuccess: tagSuccess,
-    isLoading: tagLoading,
-  } = useCreateTagMutation();
-  const {
-    mutate: createCategory,
-    isSuccess: categorySuccess,
-    isLoading: categoryLoading,
-  } = useCreateCategoryMutation();
-
-  const handleFileChange = (key: keyof typeof files) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setFiles((prev) => ({ ...prev, [key]: e.target.files?.[0] || '' }));
-
-  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-
-  const addItem = (type: string) => {
-    if (type === 'tag') createTag({ name });
-    if (type === 'category') createCategory({ name });
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
-  };
 
   const onFinish = (values: TBookChange) => {
-    const payload = { ...values, image: files.image, book: files.pdf, workBook: files.workPdf };
-    if (paramsForm) editBook({ ...values, _id: paramsForm._id, image: files.image });
+    const payload = {
+      ...values,
+      image: values.image?.file,
+      book: values.book?.file,
+      workBook: values.workBook?.file,
+    };
+    if (paramsForm) editBook({ ...values, _id: paramsForm._id, image: values.image?.file });
     else createBook(payload);
   };
 
@@ -75,10 +49,6 @@ const BooksForm: React.FC = () => {
       });
     }
   }, [paramsForm, form]);
-
-  React.useEffect(() => {
-    if (tagSuccess || categorySuccess) setName('');
-  }, [tagSuccess, categorySuccess]);
 
   return (
     <GlobalModal
@@ -93,12 +63,12 @@ const BooksForm: React.FC = () => {
           <Form.Item
             className="w-full"
             name="title"
-            label="Название"
+            label={t('title')}
             rules={[{ required: true, message: '' }]}
           >
             <Input.TextArea autoSize />
           </Form.Item>
-          <Form.Item className="w-full" name="description" label="Описание">
+          <Form.Item className="w-full" name="description" label={t('desc')}>
             <Input.TextArea autoSize />
           </Form.Item>
         </div>
@@ -117,95 +87,52 @@ const BooksForm: React.FC = () => {
             label="ISBN"
             rules={[{ required: true, message: '' }]}
           >
-            <Input.TextArea autoSize />
+            <InputNumber onKeyDown={handleNumericInputKeyDown} />
           </Form.Item>
         </div>
         {/* Select Section */}
-        <Form.Item name="videos" label="Видео" rules={[{ required: true, message: '' }]}>
-          <Select mode="tags" placeholder="Добавьте несколько..." />
+        <Form.Item name="videos" label={t('video')} rules={[{ required: true, message: '' }]}>
+          <Select mode="tags" />
         </Form.Item>
-        <Form.Item name="categoryId" label="Категория" rules={[{ required: true, message: '' }]}>
+        <Form.Item
+          name="categoryId"
+          label={t('category')}
+          rules={[{ required: true, message: '' }]}
+        >
           <Select
+            allowClear
             showSearch
             optionFilterProp="label"
-            placeholder="Выберите Категорию"
-            options={category?.data.map((el) => ({ value: el._id, label: el.name }))}
-            dropdownRender={(menu) => (
-              <>
-                {menu}
-                <Divider className="my-2" />
-                <div className="flex gap-2 p-2">
-                  <Input
-                    placeholder="Пожалуйста, введите категорию"
-                    ref={inputRef}
-                    value={name}
-                    onChange={onNameChange}
-                    onKeyDown={(e) => e.stopPropagation()}
-                  />
-                  <Button
-                    icon={<AiOutlinePlus />}
-                    onClick={() => addItem('category')}
-                    loading={categoryLoading}
-                    disabled={!name}
-                  >
-                    Добавить категорию
-                  </Button>
-                </div>
-              </>
-            )}
+            options={category?.data.map((el) => ({
+              value: el._id,
+              label: el[`name${lang}`],
+            }))}
           />
         </Form.Item>
-        <Form.Item name="tagIds" label="Теги" rules={[{ required: true, message: '' }]}>
+        <Form.Item name="tagIds" label={t('tags')} rules={[{ required: false, message: '' }]}>
           <Select
             mode="multiple"
-            placeholder="Выберите Теги"
             optionFilterProp="label"
-            options={tags?.data.map((el) => ({ value: el._id, label: el.name }))}
-            dropdownRender={(menu) => (
-              <>
-                {menu}
-                <Divider className="my-2" />
-                <div className="flex gap-2 p-2">
-                  <Input
-                    placeholder="Пожалуйста, введите тег"
-                    ref={inputRef}
-                    value={name}
-                    onChange={onNameChange}
-                    onKeyDown={(e) => e.stopPropagation()}
-                  />
-                  <Button
-                    icon={<AiOutlinePlus />}
-                    onClick={() => addItem('tag')}
-                    loading={tagLoading}
-                    disabled={!name}
-                  >
-                    Добавить тег
-                  </Button>
-                </div>
-              </>
-            )}
+            options={tags?.data.map((el) => ({
+              value: el._id,
+              label: el[`name${lang}`],
+            }))}
           />
         </Form.Item>
-        {/* File Upload Section */}
+        <FileInput label={t('photo')} name="image" accept=".jpg, .jpeg, .png" required={false} />
         <FileInput
-          label="Фото"
-          name="image"
-          accept=".jpg, .jpeg, .png"
-          onChange={handleFileChange('image')}
-        />
-        <FileInput
-          label="Основная книга"
+          label={t('studentBook')}
           name="book"
           accept=".pdf"
           hidden={!!paramsForm}
-          onChange={handleFileChange('pdf')}
+          required
         />
         <FileInput
-          label="Рабочая книга"
+          label={t('workBook')}
           name="workBook"
           accept=".pdf"
+          required={false}
           hidden={!!paramsForm}
-          onChange={handleFileChange('workPdf')}
         />
       </Form>
     </GlobalModal>

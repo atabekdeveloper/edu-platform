@@ -5,9 +5,11 @@ import { UiButton } from 'src/components/ui';
 import { useGetTagsQuery } from 'src/services/index.api';
 import { useFormStorageStore } from 'src/store';
 
+import { useTranslation } from 'react-i18next';
 import { useColumnsTable } from './useColumnsTable';
 
 const TagTable: React.FC = () => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = React.useState(1);
   const columns = useColumnsTable();
 
@@ -24,7 +26,7 @@ const TagTable: React.FC = () => {
       loading={isLoading}
       title={() => (
         <GlobalHead
-          title="Теги"
+          title={t('tags')}
           childs={[<UiButton icon={<AiOutlinePlus />} onClick={toggleModal} />]}
         />
       )}

@@ -1,13 +1,22 @@
-import { Form } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Upload } from 'antd';
+import React from 'react';
 
 export const FileInput: React.FC<{
   label: string;
   name: string;
-  accept: string;
   hidden?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ label, name, accept, hidden, onChange }) => (
-  <Form.Item label={label} name={name} hidden={hidden}>
-    <input type="file" accept={accept} onChange={onChange} />
-  </Form.Item>
-);
+  required?: boolean;
+  accept?: string;
+}> = ({ label, name, hidden, required, accept }) =>
+  hidden ? null : (
+    <Form.Item label={label} name={name} rules={[{ required, message: '' }]}>
+      <Upload
+        beforeUpload={() => false} // Prevent automatic upload
+        accept={accept}
+        maxCount={1}
+      >
+        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+      </Upload>
+    </Form.Item>
+  );

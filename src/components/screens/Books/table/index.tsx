@@ -5,8 +5,9 @@ import { UiButton } from 'src/components/ui';
 import { useGetBooksQuery } from 'src/services/index.api';
 import { useFormStorageStore } from 'src/store';
 
-import { useColumnsTable } from './useColumnsTable';
+import { useTranslation } from 'react-i18next';
 import { useDebounce } from 'src/hooks';
+import { useColumnsTable } from './useColumnsTable';
 
 const BooksTable: React.FC = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -14,6 +15,8 @@ const BooksTable: React.FC = () => {
   const [title, setTitle] = React.useState('');
   const [categoryId, setCategoryId] = React.useState('');
   const [tagIds, setTagIds] = React.useState<string[]>([]);
+
+  const { t } = useTranslation();
 
   const debounceTitle = useDebounce(title);
   const debounceAuthor = useDebounce(author);
@@ -46,7 +49,7 @@ const BooksTable: React.FC = () => {
       loading={isLoading}
       title={() => (
         <GlobalHead
-          title="Книги"
+          title={t('books')}
           childs={[<UiButton icon={<AiOutlinePlus />} onClick={toggleModal} />]}
         />
       )}

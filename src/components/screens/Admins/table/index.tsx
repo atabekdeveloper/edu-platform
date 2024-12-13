@@ -4,12 +4,15 @@ import { GlobalHead, GlobalTable } from 'src/components/shareds';
 import { UiButton } from 'src/components/ui';
 import { useFormStorageStore } from 'src/store';
 
+import { useTranslation } from 'react-i18next';
 import { useGetAdminsQuery } from 'src/services/index.api';
 import { useColumnsTable } from './useColumnsTable';
 
 const AdminsTable: React.FC = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const columns = useColumnsTable();
+
+  const { t } = useTranslation();
 
   const { data: admins, isLoading } = useGetAdminsQuery({
     page: currentPage,
@@ -24,7 +27,7 @@ const AdminsTable: React.FC = () => {
       loading={isLoading}
       title={() => (
         <GlobalHead
-          title="Админы"
+          title={t('admins')}
           childs={[<UiButton icon={<AiOutlinePlus />} onClick={toggleModal} />]}
         />
       )}

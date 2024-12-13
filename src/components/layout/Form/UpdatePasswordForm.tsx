@@ -1,5 +1,6 @@
 import { Button, Form, Input, Modal } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useUpdateUserAdminPasswordMutation } from 'src/services/index.api';
 import { TUserChange } from 'src/services/user/user.types';
@@ -9,6 +10,8 @@ const UpdatePasswordForm: React.FC = () => {
   const [form] = Form.useForm();
   const isModal = useToggleStore((state) => state.isModal);
   const toggleModal = useToggleStore((state) => state.toggleModal);
+
+  const { t } = useTranslation();
 
   const { mutate: updatePassword, isLoading, isError } = useUpdateUserAdminPasswordMutation();
 
@@ -28,11 +31,11 @@ const UpdatePasswordForm: React.FC = () => {
       open={isModal}
       centered
       closeIcon={<IoCloseOutline />}
-      title="Изменить пароль"
+      title={t('editPassword')}
       footer={
         <div className="flex flex-col gap-3 pt-3 border-t border-[#D9D9D9]">
           <Button type="primary" onClick={form.submit} loading={isLoading}>
-            Сохранить
+            {t('save')}
           </Button>
         </div>
       }
@@ -48,7 +51,7 @@ const UpdatePasswordForm: React.FC = () => {
         <Form.Item
           className="w-full"
           name="oldPassword"
-          label="Старый пароль"
+          label={t('oldPassword')}
           rules={[{ required: true, message: '' }]}
         >
           <Input.TextArea autoSize />
@@ -56,7 +59,7 @@ const UpdatePasswordForm: React.FC = () => {
         <Form.Item
           className="w-full"
           name="newPassword"
-          label="Новый пароль"
+          label={t('newPassword')}
           rules={[{ required: true, message: '' }]}
         >
           <Input.Password />
@@ -64,7 +67,7 @@ const UpdatePasswordForm: React.FC = () => {
         <Form.Item
           className="w-full"
           name="passwordConfirm"
-          label="Подтвердить пароль"
+          label={t('confirmPassword')}
           dependencies={['newPassword']}
           rules={[
             { required: true, message: '' },

@@ -9,6 +9,7 @@ import { useToggleStore } from 'src/store';
 import { HeaderSetting } from './HeaderSetting';
 
 import logo from 'src/assets/images/full_logo.svg';
+import { HeaderLang } from './HeaderLang';
 
 const Header: React.FC = () => {
   const { isMobile } = useResponsive(900);
@@ -28,6 +29,7 @@ const Header: React.FC = () => {
         </button>
       </div>
       <Space>
+        <HeaderLang />
         <Tooltip placement="bottom" title="Fullscreen">
           <button
             className="flex items-center justify-center w-[34px] h-[34px] text-xl bg-[#E3F2FD] text-primary rounded-lg hover:bg-primary hover:text-white transition"

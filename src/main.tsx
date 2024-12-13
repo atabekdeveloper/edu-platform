@@ -23,6 +23,8 @@ dayjs.extend(localeData);
 dayjs.extend(weekOfYear);
 dayjs.extend(weekYear);
 
+import './i18next';
+
 import 'antd/dist/reset.css';
 import 'src/assets/styles/_antd.css';
 

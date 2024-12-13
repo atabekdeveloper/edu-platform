@@ -3,13 +3,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { UiMenu } from 'src/components/ui';
 import { useResponsive } from 'src/hooks';
 import { useToggleStore } from 'src/store';
-import { routes } from '../routes';
+import { useRoutes } from '../routes';
 
 const NavbarMenu: React.FC = () => {
   const { isCollapsed, toggleDrawer } = useToggleStore();
   const { isMobile } = useResponsive(900);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const routes = useRoutes();
 
   return (
     <UiMenu

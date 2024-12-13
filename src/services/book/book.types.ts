@@ -18,10 +18,10 @@ export type TBookChange = {
   author: string;
   isbn: string;
   categoryId: number;
-  book: string;
+  book: any;
   videos: string[];
-  workBook?: string;
-  image: string;
+  workBook?: any;
+  image: any;
   tagIds?: number[];
 };
 export type TBookItemParams = {

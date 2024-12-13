@@ -6,12 +6,15 @@ import { UiMenu } from 'src/components/ui';
 import { useAuthPersistStore, useToggleStore } from 'src/store';
 
 import { RiAdminLine } from 'react-icons/ri';
-import { routes } from './routes';
+import { useRoutes } from './routes';
 
 const HeaderSetting: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const routes = useRoutes();
+
   const { signOut, roleName, phone } = useAuthPersistStore((state) => state);
   const toggleModal = useToggleStore((state) => state.toggleModal);
 
@@ -24,10 +27,10 @@ const HeaderSetting: React.FC = () => {
 
   const content = (
     <div className="w-[300px] p-1">
-      <h4 className="text-base font-bold">
-        Доброе утро, <span className="font-normal uppercase">{roleName}</span>
-      </h4>
-      <h6 className="text-xs text-[#697586] pb-2.5">{phone}</h6>
+      <div className="flex flex-col gap-1">
+        <h4 className="text-base font-bold uppercase">{roleName}</h4>
+        <h6 className="text-xs text-[#697586]">{phone}</h6>
+      </div>
       <UiMenu
         mode="inline"
         items={routes}

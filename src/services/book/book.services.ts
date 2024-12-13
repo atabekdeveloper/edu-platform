@@ -19,13 +19,9 @@ export const fetchCreateBook = async (values: TBookChange): Promise<SRO<TBookCha
   return res.data;
 };
 export const fetchUpdateBook = async (values: TBookChange): Promise<SRO<TBookChange>> => {
-  const res = await api.put(
-    `/book/${values._id}`,
-    removeProperties(values, ['_id', values.image ? '' : 'image']),
-    {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    },
-  );
+  const res = await api.put(`/book/${values._id}`, removeProperties(values, ['_id']), {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return res.data;
 };
 export const fetchDeleteBook = async (id: string): Promise<TMessage> => {

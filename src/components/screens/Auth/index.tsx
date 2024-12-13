@@ -1,27 +1,30 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-import React, { useEffect } from 'react';
+import { Button, Form, Input } from 'antd';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import logo from 'src/assets/images/full_logo.svg';
 import { UiPhoneIMaskInput } from 'src/components/ui';
 import { TAuthLogin } from 'src/services/auth/auth.types';
 import { useAuthLoginMutation } from 'src/services/index.api';
 import { useAuthPersistStore } from 'src/store';
-import { formatPhoneStringJoin, formMessage } from 'src/utils';
+import { formatPhoneStringJoin } from 'src/utils';
 
 const AuthLogin: React.FC = () => {
   const [form] = Form.useForm();
   const signIn = useAuthPersistStore((state) => state.signIn);
   const navigate = useNavigate();
 
-  const { mutate, isLoading, isSuccess, data: loginData } = useAuthLoginMutation();
+  const { t } = useTranslation();
+
+  const { mutate: login, isLoading, isSuccess, data: loginData } = useAuthLoginMutation();
 
   const onFinish = (values: TAuthLogin) => {
     const formattedPhone = formatPhoneStringJoin(values.phone);
-    mutate({ ...values, phone: formattedPhone });
+    login({ ...values, phone: formattedPhone });
   };
 
-  useEffect(() => {
-    if (isSuccess && loginData) {
+  React.useEffect(() => {
+    if (isSuccess) {
       const { token } = loginData.meta;
       signIn({
         accessToken: token?.access as string,
@@ -31,7 +34,7 @@ const AuthLogin: React.FC = () => {
       form.resetFields();
       navigate('/users');
     }
-  }, [isSuccess, loginData, signIn, navigate, form]);
+  }, [isSuccess]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-100">
@@ -39,10 +42,8 @@ const AuthLogin: React.FC = () => {
         <div className="px-6 py-10 bg-white rounded-lg max-w-[450px] w-full">
           <div className="flex flex-col items-center gap-1 mb-10 text-center">
             <img src={logo} alt="Logo" className="w-[120px] mb-10" />
-            <h1 className="mb-2 text-xl font-bold md:text-2xl text-primary">
-              Привет, с возвращением
-            </h1>
-            <p className="text-sm text-gray-500">Введите свои учетные данные, чтобы продолжить</p>
+            <h1 className="mb-2 text-xl font-bold md:text-2xl text-primary">{t('greetings')}</h1>
+            <p className="text-sm text-gray-500">{t('greetingsTitle')}</p>
           </div>
           <Form
             form={form}
@@ -52,20 +53,14 @@ const AuthLogin: React.FC = () => {
             onFinish={onFinish}
             autoComplete="off"
           >
-            <Form.Item name="phone" rules={[{ required: true, message: formMessage('Телефон') }]}>
+            <Form.Item name="phone" rules={[{ required: true, message: '' }]}>
               <UiPhoneIMaskInput />
             </Form.Item>
-            <Form.Item name="password" rules={[{ required: true, message: formMessage('Пароль') }]}>
+            <Form.Item name="password" rules={[{ required: true, message: '' }]}>
               <Input.Password placeholder="Пароль" />
             </Form.Item>
-            <div className="flex items-center justify-between mb-6">
-              <Checkbox className="mr-2">Запомнить меня</Checkbox>
-              <a href="#" className="text-sm text-primary hover:underline hover:text-primary">
-                Забыли пароль?
-              </a>
-            </div>
             <Button type="primary" block size="large" htmlType="submit" loading={isLoading}>
-              Войти
+              {t('login')}
             </Button>
           </Form>
         </div>

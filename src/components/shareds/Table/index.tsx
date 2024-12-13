@@ -13,7 +13,7 @@ const GlobalTable: React.FC<TableProps<any>> = (_props) => {
         pagination={{ ..._props.pagination, position: ['bottomRight'], size: 'default' }}
         size="middle"
         bordered
-        scroll={{ x: isMobile ? 'auto' : 1000 }}
+        scroll={{ x: isMobile ? 1000 : 'auto' }}
       />
     </ConfigProvider>
   );

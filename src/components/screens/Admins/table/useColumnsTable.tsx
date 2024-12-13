@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import { useTranslation } from 'react-i18next';
 import { MdDeleteOutline } from 'react-icons/md';
 import { GlobalPopConfirm } from 'src/components/shareds';
 import { useDeleteAdminMutation } from 'src/services/index.api';
@@ -7,40 +8,41 @@ import { useDeleteAdminMutation } from 'src/services/index.api';
 import { TUserItem } from 'src/services/user/user.types';
 
 export const useColumnsTable = () => {
+  const { t } = useTranslation();
   const { mutate: deleteUserAdmin, isLoading } = useDeleteAdminMutation();
   const columns: ColumnsType<TUserItem> = [
     {
-      title: 'Телефон',
+      title: t('phone'),
       dataIndex: 'phone',
       key: 'phone',
       render: (value) => value || '-',
     },
     {
-      title: 'Роль',
+      title: t('role'),
       dataIndex: 'role',
       key: 'role',
       render: (value) => value || '-',
     },
     {
-      title: 'Создано',
+      title: t('createdAt'),
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (value) => value || '-',
+      render: (value: string) => value.split('T')[0] || '-',
     },
     {
-      title: 'Обновлено',
+      title: t('lastUpdatedAt'),
       dataIndex: 'lastUpdatedAt',
       key: 'lastUpdatedAt',
-      render: (value) => value || '-',
+      render: (value: string) => value.split('T')[0] || '-',
     },
     {
-      title: 'Действие',
+      title: t('action'),
       dataIndex: 'action',
       key: 'action',
       render: (_, r) => (
         <GlobalPopConfirm
-          title="Удалить админ"
-          description="Вы уверены, что хотите удалить эту админ?"
+          title={t('deleteAdmin')}
+          description={t('deleteAdminDesc')}
           onConfirm={() => deleteUserAdmin(r._id)}
           loading={isLoading}
         >

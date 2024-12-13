@@ -1,5 +1,6 @@
 import { Form, Input } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { GlobalModal } from 'src/components/shareds';
 import { UiPhoneIMaskInput } from 'src/components/ui';
 import { useCreateAdminMutation } from 'src/services/index.api';
@@ -8,6 +9,8 @@ import { formatPhoneStringJoin } from 'src/utils';
 
 const AdminsForm: React.FC = () => {
   const [form] = Form.useForm();
+
+  const { t } = useTranslation();
 
   const {
     mutate: createAdmin,
@@ -20,13 +23,13 @@ const AdminsForm: React.FC = () => {
   return (
     <GlobalModal form={form} isLoading={createLoading} isError={createError}>
       <Form name="Admins Form" form={form} onFinish={onFinish} autoComplete="off" layout="vertical">
-        <Form.Item name="phone" rules={[{ required: true, message: '' }]}>
+        <Form.Item name="phone" label={t('phone')} rules={[{ required: true, message: '' }]}>
           <UiPhoneIMaskInput />
         </Form.Item>
         <Form.Item
           className="w-full"
           name="password"
-          label="Пароль"
+          label={t('password')}
           rules={[{ required: true, message: '' }]}
         >
           <Input.Password />
@@ -34,7 +37,7 @@ const AdminsForm: React.FC = () => {
         <Form.Item
           className="w-full"
           name="passwordConfirm"
-          label="Подтвердить пароль"
+          label={t('confirmPassword')}
           dependencies={['password']}
           rules={[
             { required: true, message: '' },

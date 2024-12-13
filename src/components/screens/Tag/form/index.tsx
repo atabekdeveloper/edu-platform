@@ -1,5 +1,6 @@
 import { Form, Input } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { GlobalModal } from 'src/components/shareds';
 import { useCreateTagMutation, useUpdateTagMutation } from 'src/services/index.api';
 import { TTagChange } from 'src/services/tag/tag.types';
@@ -7,6 +8,7 @@ import { useFormStorageStore } from 'src/store';
 
 const TagForm: React.FC = () => {
   const [form] = Form.useForm();
+  const { t } = useTranslation();
 
   const {
     mutate: createTag,
@@ -38,8 +40,24 @@ const TagForm: React.FC = () => {
       <Form name="Tag Form" form={form} onFinish={onFinish} autoComplete="off" layout="vertical">
         <Form.Item
           className="w-full"
-          name="name"
-          label="Название"
+          name="nameUz"
+          label={`${t('title')} (O'zbekcha)`}
+          rules={[{ required: true, message: '' }]}
+        >
+          <Input.TextArea autoSize />
+        </Form.Item>
+        <Form.Item
+          className="w-full"
+          name="nameRu"
+          label={`${t('title')} (Русский)`}
+          rules={[{ required: true, message: '' }]}
+        >
+          <Input.TextArea autoSize />
+        </Form.Item>
+        <Form.Item
+          className="w-full"
+          name="nameEng"
+          label={`${t('title')} (English)`}
           rules={[{ required: true, message: '' }]}
         >
           <Input.TextArea autoSize />

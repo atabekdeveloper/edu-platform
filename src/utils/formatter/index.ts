@@ -23,7 +23,13 @@ export const formatNum = <T extends number | string>(value: T): string =>
 export const formatEmptyValue = (value?: string): string => value || '-';
 
 export function removeProperties(obj: any, props: string[]) {
-  const newObj = { ...obj }; // Создаем копию объекта
-  props.forEach((prop) => delete newObj[prop]); // Удаляем каждое свойство из массива
-  return newObj; // Возвращаем новый объект
+  const newObj = { ...obj };
+  props.forEach((prop) => {
+    if (newObj[prop] === undefined || newObj[prop] === null || newObj[prop] === '') {
+      delete newObj[prop];
+    } else {
+      delete newObj[prop];
+    }
+  });
+  return newObj;
 }

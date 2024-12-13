@@ -1,5 +1,6 @@
 import { Form, Input } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { GlobalModal } from 'src/components/shareds';
 import { TCategoryChange } from 'src/services/category/category.types';
 import { useCreateCategoryMutation, useUpdateCategoryMutation } from 'src/services/index.api';
@@ -7,6 +8,7 @@ import { useFormStorageStore } from 'src/store';
 
 const CategoryForm: React.FC = () => {
   const [form] = Form.useForm();
+  const { t } = useTranslation();
 
   const {
     mutate: createCategory,
@@ -48,8 +50,24 @@ const CategoryForm: React.FC = () => {
       >
         <Form.Item
           className="w-full"
-          name="name"
-          label="Название"
+          name="nameUz"
+          label={`${t('title')} (O'zbekcha)`}
+          rules={[{ required: true, message: '' }]}
+        >
+          <Input.TextArea autoSize />
+        </Form.Item>
+        <Form.Item
+          className="w-full"
+          name="nameRu"
+          label={`${t('title')} (Русский)`}
+          rules={[{ required: true, message: '' }]}
+        >
+          <Input.TextArea autoSize />
+        </Form.Item>
+        <Form.Item
+          className="w-full"
+          name="nameEng"
+          label={`${t('title')} (English)`}
           rules={[{ required: true, message: '' }]}
         >
           <Input.TextArea autoSize />
