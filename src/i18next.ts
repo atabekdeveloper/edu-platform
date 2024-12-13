@@ -6,8 +6,8 @@ const lang = localStorage.getItem('lang');
 
 i18n.use(initReactI18next).init({
   resources: { Eng: en, Ru: ru, Uz: uz },
-  lng: JSON.parse(`${lang}`)?.state?.lang || 'Ru',
-  fallbackLng: JSON.parse(`${lang}`)?.state?.lang || 'Ru',
+  lng: JSON.parse(`${lang}`)?.state?.lang || 'Uz',
+  fallbackLng: JSON.parse(`${lang}`)?.state?.lang || 'Uz',
   react: { useSuspense: true },
   interpolation: { escapeValue: false },
 });

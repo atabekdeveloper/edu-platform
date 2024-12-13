@@ -10,7 +10,7 @@ const authInterceptor = (config: AxiosRequestConfig) => {
     config.headers = {
       ...config.headers,
       authorization: `Bearer ${token}`,
-      lang: `${lang}`.toLowerCase() || 'uz',
+      lang: lang ? `${lang}`.toLowerCase() : 'uz',
     };
   }
   return config;

@@ -9,7 +9,7 @@ interface ILangPerisistState {
 export const useLangPersistStore = create(
   persist<ILangPerisistState>(
     (set) => ({
-      lang: 'Ru',
+      lang: 'Uz',
       setLang: ({ lang }) => set({ lang }),
     }),
     {
