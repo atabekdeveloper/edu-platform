@@ -1,4 +1,4 @@
-import { Admins, Books, Category, Home, NotFound, Tag, Users } from 'src/components/screens';
+import { Admins, Books, Category, Home, NotFound, Tag, Users } from 'src/components/admin/screens';
 
 const routes = [
   { path: '/', element: <Home /> },

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import { Layout } from 'src/components/layout/Layout';
+import { Layout } from 'src/components/admin/layout/Layout';
 
 import { routes } from 'src/routes';
 
-import { AuthLogin } from './components/screens';
+import { AuthLogin } from './components/admin/screens';
 import { useAuthPersistStore } from './store';
 
 const App: React.FC = () => {

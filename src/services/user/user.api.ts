@@ -15,10 +15,7 @@ const useGetUsersQuery = (params: TGetParamsChange) =>
   useQuery({
     queryFn: () => fetchGetUsers(params),
     queryKey: ['user', ...Object.values(params)],
-    onError: (err: any) => {
-      console.log(err);
-      message.error(err.response.data.meta.message);
-    },
+    onError: (err: any) => message.error(err.response.data.meta.message),
   });
 const useGetAdminsQuery = (params: TGetParamsChange) =>
   useQuery({
