@@ -7,12 +7,15 @@ import { MdMenu } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import logo from 'src/assets/images/logo.svg';
+import { useResponsive } from 'src/hooks';
 import { useAuthPersistStore } from 'src/store';
+import { HeaderCategory } from './HeaderCategory';
 import { HeaderLang } from './HeaderLang';
 
 const Header: React.FC = () => {
   const [activeCatalog, setActiveCatalog] = React.useState(false);
   const token = useAuthPersistStore((state) => state.accessToken);
+  const { isMobile } = useResponsive(1024);
   const navigate = useNavigate();
   return (
     <header className="container relative flex justify-between gap-5 py-7">
@@ -21,13 +24,21 @@ const Header: React.FC = () => {
           <img className="max-w-[140px]" src={logo} alt="Logo" />
           <h3 className="text-primary">EDU Platform</h3>
         </div>
-        <button
-          className="items-center hidden gap-2 px-4 py-2 border rounded-md lg:flex border-primary text-primary"
-          onClick={() => setActiveCatalog((prev) => !prev)}
+        <Popover
+          content={<HeaderCategory />}
+          placement="bottom"
+          overlayStyle={{ width: '300px' }}
+          overlayInnerStyle={{ padding: '10px 0px' }}
+          arrow={false}
+          open={!isMobile && activeCatalog}
+          onOpenChange={(value) => setActiveCatalog(value)}
+          trigger="click"
         >
-          <span className="font-bold">Каталог</span>
-          {activeCatalog ? <IoMdClose size={20} /> : <MdMenu size={20} />}
-        </button>
+          <button className="items-center hidden gap-2 px-4 py-2 border rounded-md lg:flex border-primary text-primary">
+            <span className="font-bold">Каталог</span>
+            {activeCatalog ? <IoMdClose size={20} /> : <MdMenu size={20} />}
+          </button>
+        </Popover>
       </div>
       <div className="flex items-center gap-3">
         <div className="flex flex-col items-center gap-2 md:flex-row lg:hidden">
@@ -36,13 +47,22 @@ const Header: React.FC = () => {
         <Popover
           content={
             <div className="flex flex-col gap-3">
-              <button
-                className="flex items-center justify-between gap-2 px-4 py-2 border rounded-md border-primary text-primary"
-                onClick={() => setActiveCatalog((prev) => !prev)}
+              <Popover
+                content={<HeaderCategory />}
+                placement="bottom"
+                overlayStyle={{ width: '300px' }}
+                overlayInnerStyle={{ padding: '10px 0px' }}
+                arrow={false}
+                open={isMobile && activeCatalog}
+                onOpenChange={(value) => setActiveCatalog(value)}
+                trigger="click"
               >
-                <span className="font-bold">Каталог</span>
-                {activeCatalog ? <IoMdClose size={20} /> : <MdMenu size={20} />}
-              </button>
+                <button className="flex items-center justify-between gap-2 px-4 py-2 border rounded-md border-primary text-primary">
+                  <span className="font-bold">Каталог</span>
+                  {activeCatalog ? <IoMdClose size={20} /> : <MdMenu size={20} />}
+                </button>
+              </Popover>
+
               <Button
                 className="w-full"
                 type="primary"

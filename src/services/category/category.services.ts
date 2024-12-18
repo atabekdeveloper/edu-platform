@@ -6,7 +6,7 @@ import { TCategoryChange, TCategoryItem } from './category.types';
 
 export const fetchGetCategories = async (params: TGetParamsChange): Promise<SR<TCategoryItem>> => {
   const res = await api.get('/category', {
-    params: { count: 10, page: params.page },
+    params: { count: params.count || 10, page: params.page },
   });
   return res.data;
 };

@@ -24,7 +24,7 @@ const Header: React.FC = () => {
           <img className="max-w-[140px]" src={logo} alt="Logo" />
           <h3>EDU Platform</h3>
         </div>
-        <button className="py-0 rounded-md custom-icon" onClick={onToggleDrawer}>
+        <button className="py-2 rounded-md custom-icon" onClick={onToggleDrawer}>
           <RxHamburgerMenu />
         </button>
       </div>

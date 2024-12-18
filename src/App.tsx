@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const roleName = useAuthPersistStore((state) => state.roleName);
 
   React.useEffect(() => {
-    if (token) {
+    if (token && pathname === '/login') {
       if (roleName === 'admin') navigate('/admin/users');
       else navigate('/');
     }

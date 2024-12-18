@@ -10,7 +10,7 @@ body {
     @apply pt-5 relative text-3xl text-gray-800 font-bold text-left before:content-[''] before:absolute before:bottom-[-10px] before:left-0 before:transform before:-translate-x-0 before:w-[30px] before:h-[2px] before:bg-primary mb-6;
   }
   .container {
-    @apply w-[1200px] max-w-full mx-auto px-5 pt-20;
+    @apply w-[1200px] max-w-full mx-auto px-5;
   }
   .custom-icon {
     @apply bg-[#e3f2fd] flex items-center gap-2.5 text-blue-500 text-xl cursor-pointer px-2.5 py-[5px] rounded-[27px] hover:bg-blue-500 hover:text-white;
