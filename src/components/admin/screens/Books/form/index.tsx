@@ -10,7 +10,7 @@ import {
   useUpdateBookMutation,
 } from 'src/services/index.api';
 import { useFormStorageStore, useLangPersistStore } from 'src/store';
-import { handleNumericInputKeyDown } from 'src/utils';
+import { capitalizeFirstLetter, handleNumericInputKeyDown } from 'src/utils';
 
 const BooksForm: React.FC = () => {
   const [form] = Form.useForm();
@@ -103,9 +103,9 @@ const BooksForm: React.FC = () => {
             allowClear
             showSearch
             optionFilterProp="label"
-            options={category?.data.map((el) => ({
+            options={category?.data.map((el: any) => ({
               value: el._id,
-              label: el[`name${lang}`],
+              label: el[`name${capitalizeFirstLetter(lang)}`],
             }))}
           />
         </Form.Item>
@@ -113,9 +113,9 @@ const BooksForm: React.FC = () => {
           <Select
             mode="multiple"
             optionFilterProp="label"
-            options={tags?.data.map((el) => ({
+            options={tags?.data.map((el: any) => ({
               value: el._id,
-              label: el[`name${lang}`],
+              label: el[`name${capitalizeFirstLetter(lang)}`],
             }))}
           />
         </Form.Item>

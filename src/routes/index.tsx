@@ -1,13 +1,28 @@
-import { Admins, Books, Category, Home, NotFound, Tag, Users } from 'src/components/admin/screens';
+import {
+  Home as AdminHome,
+  Admins,
+  Books,
+  Category,
+  NotFound,
+  Tag,
+  Users,
+} from 'src/components/admin/screens';
 
-const routes = [
-  { path: '/', element: <Home /> },
-  { path: '/users', element: <Users /> },
-  { path: '/admins', element: <Admins /> },
-  { path: '/category', element: <Category /> },
-  { path: '/tags', element: <Tag /> },
-  { path: '/books', element: <Books /> },
+import { Home as UserHome } from 'src/components/user/screens/Home';
+
+const adminRoutes = [
+  { path: '/admin/', element: <AdminHome /> },
+  { path: '/admin/users', element: <Users /> },
+  { path: '/admin/admins', element: <Admins /> },
+  { path: '/admin/category', element: <Category /> },
+  { path: '/admin/tags', element: <Tag /> },
+  { path: '/admin/books', element: <Books /> },
   { path: '*', element: <NotFound /> },
 ];
 
-export { routes };
+const userRoutes = [
+  { path: '/', element: <UserHome /> },
+  { path: '*', element: <NotFound /> },
+];
+
+export { adminRoutes, userRoutes };

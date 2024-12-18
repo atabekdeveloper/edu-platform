@@ -19,9 +19,11 @@ const HeaderSetting: React.FC = () => {
   const toggleModal = useToggleStore((state) => state.toggleModal);
 
   const onSelectMenuItem = (key: string) => {
-    if (key === '/logout') signOut();
+    if (key === '/logout') {
+      signOut();
+      navigate('/');
+    }
     if (key === '/password') toggleModal();
-    else navigate(key);
     setOpen(false);
   };
 
@@ -48,7 +50,7 @@ const HeaderSetting: React.FC = () => {
       content={content}
       onOpenChange={setOpen}
     >
-      <div className="bg-[#e3f2fd] flex items-center gap-2.5 text-blue-500 text-xl cursor-pointer px-2.5 py-[5px] rounded-[27px] hover:bg-blue-500 hover:text-white">
+      <div className="custom-icon">
         <Avatar icon={<RiAdminLine />} />
         <FiSettings />
       </div>

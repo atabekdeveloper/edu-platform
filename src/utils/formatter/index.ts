@@ -33,3 +33,7 @@ export function removeProperties(obj: any, props: string[]) {
   });
   return newObj;
 }
+export function capitalizeFirstLetter(str: string) {
+  if (!str) return ''; // Проверка на пустую строку
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

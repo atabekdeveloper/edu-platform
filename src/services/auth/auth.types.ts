@@ -6,6 +6,7 @@ export type TAuthLogin = {
 };
 export type TAuthRegister = {
   fullName: string;
+  age: string;
   phone: string;
   role: TRoleItemTypes;
   password: string;

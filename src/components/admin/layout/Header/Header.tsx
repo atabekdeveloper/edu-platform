@@ -8,7 +8,7 @@ import { useResponsive } from 'src/hooks';
 import { useToggleStore } from 'src/store';
 import { HeaderSetting } from './HeaderSetting';
 
-import logo from 'src/assets/images/full_logo.svg';
+import logo from 'src/assets/images/logo.svg';
 import { HeaderLang } from './HeaderLang';
 
 const Header: React.FC = () => {
@@ -20,21 +20,18 @@ const Header: React.FC = () => {
   return (
     <header className="flex items-center justify-between w-full min-h-[80px] fixed z-[500] bg-white px-5 top-0">
       <div className="flex items-center justify-between gap-3 basis-[245px] px-2">
-        <img className="max-w-[140px] max900:hidden" src={logo} alt="Logo" />
-        <button
-          className="flex items-center justify-center w-[34px] h-[34px] text-xl bg-[#E3F2FD] text-primary rounded-lg hover:bg-primary hover:text-white transition"
-          onClick={onToggleDrawer}
-        >
+        <div className="flex items-center gap-2 max900:hidden">
+          <img className="max-w-[140px]" src={logo} alt="Logo" />
+          <h3>EDU Platform</h3>
+        </div>
+        <button className="py-0 rounded-md custom-icon" onClick={onToggleDrawer}>
           <RxHamburgerMenu />
         </button>
       </div>
       <Space>
         <HeaderLang />
         <Tooltip placement="bottom" title="Fullscreen">
-          <button
-            className="flex items-center justify-center w-[34px] h-[34px] text-xl bg-[#E3F2FD] text-primary rounded-lg hover:bg-primary hover:text-white transition"
-            onClick={() => screenfull.toggle()}
-          >
+          <button className="p-2 rounded-md custom-icon" onClick={() => screenfull.toggle()}>
             <BsArrowsFullscreen />
           </button>
         </Tooltip>

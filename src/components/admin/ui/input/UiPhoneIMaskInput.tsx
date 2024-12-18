@@ -3,9 +3,7 @@ import { IMaskInput, IMaskInputProps } from 'react-imask';
 
 const UiPhoneIMaskInput: React.FC<IMaskInputProps<any>> = (props) => {
   const inputRef = useRef<HTMLInputElement>(null);
-
   const handleDivClick = () => inputRef.current && inputRef.current.focus();
-
   return (
     <div
       className={`relative w-full border border-gray-300 rounded-lg px-2.5 py-2 transition-all duration-200 hover:border-primary ${

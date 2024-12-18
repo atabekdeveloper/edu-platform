@@ -13,12 +13,12 @@ export const useRoutes = () => {
       type: 'group',
     },
     {
-      key: '/admin/users',
+      key: '/users',
       label: t('users'),
       icon: <PiUsersThree />,
     },
     {
-      key: '/admin/admins',
+      key: '/admins',
       label: t('admins'),
       icon: <PiUsers />,
     },
@@ -28,17 +28,17 @@ export const useRoutes = () => {
       type: 'group',
     },
     {
-      key: '/admin/books',
+      key: '/books',
       label: t('books'),
       icon: <IoBookOutline />,
     },
     {
-      key: '/admin/category',
+      key: '/category',
       label: t('category'),
       icon: <BiCategory />,
     },
     {
-      key: '/admin/tags',
+      key: '/tags',
       label: t('tags'),
       icon: <HiHashtag />,
     },

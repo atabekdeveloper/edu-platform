@@ -10,6 +10,7 @@ import {
   useGetTagsQuery,
 } from 'src/services/index.api';
 import { useFormStorageStore, useLangPersistStore } from 'src/store';
+import { capitalizeFirstLetter } from 'src/utils';
 
 interface IUseColumnsTable {
   title: string;
@@ -95,13 +96,16 @@ export const useColumnsTable = ({
           value={categoryId || null}
           onSelect={(value) => setCategoryId(value)}
           onClear={() => setCategoryId('')}
-          options={category?.data.map((el) => ({ value: el._id, label: el[`name${lang}`] }))}
+          options={category?.data.map((el: any) => ({
+            value: el._id,
+            label: el[`name${capitalizeFirstLetter(lang)}`],
+          }))}
         />
       ),
       dataIndex: 'category',
       key: 'category',
       onCell: (data) => ({ onClick: () => setParamsForm(data) }),
-      render: (_, r) => r.category[`name${lang}`] || '',
+      render: (_, r: any) => r.category[`name${capitalizeFirstLetter(lang)}`] || '',
     },
     {
       title: (
@@ -116,7 +120,10 @@ export const useColumnsTable = ({
           onSelect={(value) => setTagIds((prev) => [...prev, value])}
           onDeselect={(value) => setTagIds((prev) => prev.filter((el) => el !== value))}
           onClear={() => setTagIds([])}
-          options={tags?.data.map((el) => ({ value: el._id, label: el[`name${lang}`] }))}
+          options={tags?.data.map((el: any) => ({
+            value: el._id,
+            label: el[`name${capitalizeFirstLetter(lang)}`],
+          }))}
         />
       ),
       dataIndex: 'tags',
@@ -124,8 +131,8 @@ export const useColumnsTable = ({
       onCell: (data) => ({ onClick: () => setParamsForm(data) }),
       render: (_, r) => (
         <div className="flex flex-wrap gap-1">
-          {r.tags.map((tag) => (
-            <Tag key={tag._id}>{tag[`name${lang}`]}</Tag>
+          {r.tags.map((tag: any) => (
+            <Tag key={tag._id}>{tag[`name${capitalizeFirstLetter(lang)}`]}</Tag>
           ))}
         </div>
       ),

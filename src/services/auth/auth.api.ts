@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { message } from 'antd';
 import { useAuthPersistStore } from 'src/store';
 import { handleError } from 'src/utils';
-import { fetchAuthLogin, fetchAuthLogout, fetchGetAuth } from './auth.services';
+import { fetchAuthLogin, fetchAuthLogout, fetchAuthRegister, fetchGetAuth } from './auth.services';
 
 const useGetAuthUserQuery = () => {
   const { signOut } = useAuthPersistStore();
@@ -28,6 +28,18 @@ const useAuthLoginMutation = () => {
   });
 };
 
+const useAuthSignMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: fetchAuthRegister,
+    onSuccess: (res) => {
+      message.success(res.meta.message);
+      queryClient.invalidateQueries(['auth']);
+    },
+    onError: handleError,
+  });
+};
+
 const useAuthLogoutMutation = () =>
   useMutation({
     mutationFn: fetchAuthLogout,
@@ -35,4 +47,4 @@ const useAuthLogoutMutation = () =>
     onError: handleError,
   });
 
-export { useAuthLoginMutation, useAuthLogoutMutation, useGetAuthUserQuery };
+export { useAuthLoginMutation, useAuthLogoutMutation, useAuthSignMutation, useGetAuthUserQuery };

@@ -23,7 +23,7 @@ const Layout: React.FC = () => {
       <main
         className={`relative transition-all duration-200 grow min-h-[calc(100vh_-_88px)] bg-[#eef2f6] flex flex-col mt-[88px] p-5 overflow-hidden rounded-t-[8px] max900:mr-3 mr-5 max900:ml-3 ${getMainMargin()}`}
       >
-        {token ? <Outlet /> : <Navigate to="/login" />}
+        {token ? <Outlet /> : <Navigate to="/" />}
       </main>
     </div>
   );

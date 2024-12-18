@@ -1,7 +1,7 @@
 import { api } from 'src/api';
 import { SRO, TMessage } from 'src/services/index.types';
 
-import { TAuthLogin, TAuthLoginGet, TAuthUserItem } from './auth.types';
+import { TAuthLogin, TAuthLoginGet, TAuthRegister, TAuthUserItem } from './auth.types';
 
 export const fetchGetAuth = async (): Promise<SRO<TAuthUserItem>> => {
   const res = await api.get('/auth/user');
@@ -11,7 +11,7 @@ export const fetchAuthLogin = async (values: TAuthLogin): Promise<SRO<TAuthLogin
   const res = await api.post('/auth/login', values);
   return res.data;
 };
-export const fetchAuthRegister = async (values: TAuthLogin): Promise<SRO<TAuthLoginGet>> => {
+export const fetchAuthRegister = async (values: TAuthRegister): Promise<SRO<TAuthLoginGet>> => {
   const res = await api.post('/auth/register', values);
   return res.data;
 };

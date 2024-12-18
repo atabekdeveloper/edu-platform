@@ -2,14 +2,14 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface ILangPerisistState {
-  lang: 'Uz' | 'Ru' | 'Eng';
-  setLang: (tokens: { lang: 'Uz' | 'Ru' | 'Eng' }) => void;
+  lang: 'uz' | 'ru' | 'eng';
+  setLang: (tokens: { lang: 'uz' | 'ru' | 'eng' }) => void;
 }
 
 export const useLangPersistStore = create(
   persist<ILangPerisistState>(
     (set) => ({
-      lang: 'Uz',
+      lang: 'uz',
       setLang: ({ lang }) => set({ lang }),
     }),
     {
