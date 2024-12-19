@@ -25,7 +25,7 @@ const Header: React.FC = () => {
           <h3 className="text-primary">EDU Platform</h3>
         </div>
         <Popover
-          content={<HeaderCategory />}
+          content={<HeaderCategory setActiveCatalog={setActiveCatalog} />}
           placement="bottom"
           overlayStyle={{ width: '300px' }}
           overlayInnerStyle={{ padding: '10px 0px' }}
@@ -48,7 +48,7 @@ const Header: React.FC = () => {
           content={
             <div className="flex flex-col gap-3">
               <Popover
-                content={<HeaderCategory />}
+                content={<HeaderCategory setActiveCatalog={setActiveCatalog} />}
                 placement="bottom"
                 overlayStyle={{ width: '300px' }}
                 overlayInnerStyle={{ padding: '10px 0px' }}
