@@ -25,8 +25,8 @@ export type TBookChange = {
   tagIds?: number[];
 };
 export type TBookItemParams = {
-  title: string;
-  author: string;
-  categoryId: string | null;
-  tagIds: string[];
+  title?: string;
+  author?: string;
+  categoryId?: string | null;
+  tagIds?: string[];
 };

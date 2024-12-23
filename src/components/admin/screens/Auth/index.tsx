@@ -118,8 +118,8 @@ const AuthLogin: React.FC = () => {
           <Swiper
             slidesPerView={1}
             spaceBetween={50}
-            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)} // Обновляем activeIndex при изменении слайда
-            onSwiper={(swiper) => (swiperRef.current = swiper)} // Получаем экземпляр Swiper
+            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
           >
             <SwiperSlide>
               <AuthLoginForm

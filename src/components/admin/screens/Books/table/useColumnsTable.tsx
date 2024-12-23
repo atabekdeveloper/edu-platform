@@ -1,7 +1,7 @@
 import { Button, Input, Select, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useTranslation } from 'react-i18next';
-import { MdDeleteOutline } from 'react-icons/md';
+import { MdDeleteOutline, MdOutlineEdit } from 'react-icons/md';
 import { GlobalPopConfirm } from 'src/components/admin/shareds';
 import { TBookItem } from 'src/services/book/book.types';
 import {
@@ -53,7 +53,6 @@ export const useColumnsTable = ({
       dataIndex: 'title',
       key: 'title',
       ellipsis: true,
-      onCell: (data) => ({ onClick: () => setParamsForm(data) }),
       render: (value) => value || '-',
     },
     {
@@ -61,7 +60,6 @@ export const useColumnsTable = ({
       dataIndex: 'description',
       key: 'description',
       ellipsis: true,
-      onCell: (data) => ({ onClick: () => setParamsForm(data) }),
       render: (value) => value || '-',
     },
     {
@@ -75,14 +73,12 @@ export const useColumnsTable = ({
       ),
       dataIndex: 'author',
       key: 'author',
-      onCell: (data) => ({ onClick: () => setParamsForm(data) }),
       render: (value) => value || '-',
     },
     {
       title: 'ISBN',
       dataIndex: 'isbn',
       key: 'isbn',
-      onCell: (data) => ({ onClick: () => setParamsForm(data) }),
       render: (value) => value || '-',
     },
     {
@@ -104,7 +100,6 @@ export const useColumnsTable = ({
       ),
       dataIndex: 'category',
       key: 'category',
-      onCell: (data) => ({ onClick: () => setParamsForm(data) }),
       render: (_, r: any) => r.category[`name${capitalizeFirstLetter(lang)}`] || '',
     },
     {
@@ -128,7 +123,6 @@ export const useColumnsTable = ({
       ),
       dataIndex: 'tags',
       key: 'tags',
-      onCell: (data) => ({ onClick: () => setParamsForm(data) }),
       render: (_, r) => (
         <div className="flex flex-wrap gap-1">
           {r.tags.map((tag: any) => (
@@ -141,7 +135,6 @@ export const useColumnsTable = ({
       title: t('photo'),
       dataIndex: 'imageUrl',
       key: 'imageUrl',
-      onCell: (data) => ({ onClick: (e: any) => e.target?.tagName !== 'A' && setParamsForm(data) }),
       render: (value) => (
         <a className="hover:underline text-primary" href={value} target="_blank">
           Link
@@ -152,7 +145,6 @@ export const useColumnsTable = ({
       title: t('studentBook'),
       dataIndex: 'pdfUrl',
       key: 'pdfUrl',
-      onCell: (data) => ({ onClick: (e: any) => e.target?.tagName !== 'A' && setParamsForm(data) }),
       render: (value) => (
         <a className="hover:underline text-primary" href={value} target="_blank">
           Link
@@ -163,7 +155,6 @@ export const useColumnsTable = ({
       title: t('workBook'),
       dataIndex: 'workBookPdfUrl',
       key: 'workBookPdfUrl',
-      onCell: (data) => ({ onClick: (e: any) => e.target?.tagName !== 'A' && setParamsForm(data) }),
       render: (value) => (
         <a className="hover:underline text-primary" href={value} target="_blank">
           Link
@@ -175,14 +166,17 @@ export const useColumnsTable = ({
       dataIndex: 'action',
       key: 'action',
       render: (_, r) => (
-        <GlobalPopConfirm
-          title={t('deleteBook')}
-          description={t('deleteBookDesc')}
-          onConfirm={() => deleteBook(r._id)}
-          loading={isLoading}
-        >
-          <Button type="primary" danger icon={<MdDeleteOutline />} />
-        </GlobalPopConfirm>
+        <div className="flex gap-2">
+          <Button icon={<MdOutlineEdit />} type="default" onClick={() => setParamsForm(r)} />
+          <GlobalPopConfirm
+            title={t('deleteBook')}
+            description={t('deleteBookDesc')}
+            onConfirm={() => deleteBook(r._id)}
+            loading={isLoading}
+          >
+            <Button type="primary" danger icon={<MdDeleteOutline />} />
+          </GlobalPopConfirm>
+        </div>
       ),
     },
   ];

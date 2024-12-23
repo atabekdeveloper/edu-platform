@@ -31,7 +31,7 @@ const HeaderLang: React.FC = () => {
           {langItems.map((el) => (
             <li
               key={el.value}
-              className="flex items-center gap-3 px-2 py-1 rounded-md cursor-pointer hover:bg-gray-200"
+              className="flex items-center justify-between gap-3 px-2 py-1 rounded-md cursor-pointer hover:bg-gray-200"
               onClick={() => handleChangeLang(el.value as any)}
             >
               <span className="uppercase">{el.label}</span>
