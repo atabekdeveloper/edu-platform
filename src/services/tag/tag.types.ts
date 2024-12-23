@@ -12,4 +12,5 @@ export type TTagChange = {
   nameUz: string;
   nameRu: string;
   nameEng: string;
+  name: string;
 };

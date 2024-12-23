@@ -5,10 +5,11 @@ import { IoSearchOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
 import logo from 'src/assets/images/logo.svg';
-import { useAuthPersistStore } from 'src/store';
+import { useAuthPersistStore, useFilterBookStore } from 'src/store';
 import { HeaderLang } from './HeaderLang';
 
 const Header: React.FC = () => {
+  const { title, setTitle } = useFilterBookStore();
   const token = useAuthPersistStore((state) => state.accessToken);
   const navigate = useNavigate();
   return (
@@ -18,21 +19,6 @@ const Header: React.FC = () => {
           <img className="max-w-[140px]" src={logo} alt="Logo" />
           <h3 className="text-primary">EDU Platform</h3>
         </div>
-        {/* <Popover
-          content={<HeaderCategory setActiveCatalog={setActiveCatalog} />}
-          placement="bottom"
-          overlayStyle={{ width: '300px' }}
-          overlayInnerStyle={{ padding: '10px 0px' }}
-          arrow={false}
-          open={!isMobile && activeCatalog}
-          onOpenChange={(value) => setActiveCatalog(value)}
-          trigger="click"
-        >
-          <button className="items-center hidden gap-2 px-4 py-2 border rounded-md lg:flex border-primary text-primary">
-            <span className="font-bold">Каталог</span>
-            {activeCatalog ? <IoMdClose size={20} /> : <MdMenu size={20} />}
-          </button>
-        </Popover> */}
       </div>
       <div className="flex items-center gap-3">
         <div className="flex flex-col items-center gap-2 md:flex-row lg:hidden">
@@ -43,6 +29,8 @@ const Header: React.FC = () => {
             <div className="relative">
               <IoSearchOutline className="absolute -translate-y-1/2 top-1/2 left-1" />
               <input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 className="pl-7 outline-none bg-[#fff] rounded-md placeholder:text-black w-full"
                 placeholder="Поиск"
               />
@@ -62,6 +50,8 @@ const Header: React.FC = () => {
       <div className="relative max-w-[400px] w-full lg:block hidden">
         <IoSearchOutline className="absolute -translate-y-1/2 top-1/2 left-3" />
         <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           className="py-3 px-3 pl-9 outline-none bg-[#f6f6f6] rounded-md placeholder:text-black w-full"
           placeholder="Поиск"
         />

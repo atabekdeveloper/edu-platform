@@ -7,9 +7,7 @@ import { TBookChange, TBookItem, TBookItemParams } from './book.types';
 export const fetchGetBooks = async (
   params: TGetParamsChange & TBookItemParams,
 ): Promise<SR<TBookItem>> => {
-  const res = await api.get('/book', {
-    params: { ...params, count: 10, page: params.page },
-  });
+  const res = await api.get('/book', { params: removeProperties(params, ['title', 'categoryId']) });
   return res.data;
 };
 export const fetchCreateBook = async (values: TBookChange): Promise<SRO<TBookChange>> => {

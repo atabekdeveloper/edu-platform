@@ -27,8 +27,6 @@ export function removeProperties(obj: any, props: string[]) {
   props.forEach((prop) => {
     if (newObj[prop] === undefined || newObj[prop] === null || newObj[prop] === '') {
       delete newObj[prop];
-    } else {
-      delete newObj[prop];
     }
   });
   return newObj;

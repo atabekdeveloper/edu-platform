@@ -167,7 +167,6 @@ export const useColumnsTable = ({
       key: 'action',
       render: (_, r) => (
         <div className="flex gap-2">
-          <Button icon={<MdOutlineEdit />} type="default" onClick={() => setParamsForm(r)} />
           <GlobalPopConfirm
             title={t('deleteBook')}
             description={t('deleteBookDesc')}
@@ -176,6 +175,7 @@ export const useColumnsTable = ({
           >
             <Button type="primary" danger icon={<MdDeleteOutline />} />
           </GlobalPopConfirm>
+          <Button icon={<MdOutlineEdit />} type="default" onClick={() => setParamsForm(r)} />
         </div>
       ),
     },
