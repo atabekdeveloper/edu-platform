@@ -9,6 +9,7 @@ export type TBookItem = {
   imageUrl: string;
   pdfUrl: string;
   category: TCategoryItem;
+  description: string;
   tags: TTagItem[];
 };
 export type TBookChange = {

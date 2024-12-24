@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@loadable/component": "^5.16.4",
+    "@pdftron/webviewer": "^11.1.1",
     "@tanstack/react-query": "4.33.0",
     "@tanstack/react-query-devtools": "4.33.0",
     "antd": "^5.22.1",

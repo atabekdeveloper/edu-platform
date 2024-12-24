@@ -10,14 +10,18 @@ export const fetchGetBooks = async (
   const res = await api.get('/book', { params: removeProperties(params, ['title', 'categoryId']) });
   return res.data;
 };
+export const fetchGetBookItem = async (params: { id: string }): Promise<SRO<TBookItem>> => {
+  const res = await api.get(`/book/${params.id}`);
+  return res.data;
+};
 export const fetchCreateBook = async (values: TBookChange): Promise<SRO<TBookChange>> => {
-  const res = await api.post('/book', values, {
+  const res = await api.post('/book', removeProperties(values, ['_id']), {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
   return res.data;
 };
 export const fetchUpdateBook = async (values: TBookChange): Promise<SRO<TBookChange>> => {
-  const res = await api.put(`/book/${values._id}`, removeProperties(values, ['_id']), {
+  const res = await api.put(`/book/${values._id}`, removeProperties(values, [], ['_id']), {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
   return res.data;

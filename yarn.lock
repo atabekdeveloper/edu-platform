@@ -536,6 +536,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@pdftron/webviewer@^11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@pdftron/webviewer/-/webviewer-11.1.1.tgz#6704d901fc6614f096d0bdc7b88b5a63349e576e"
+  integrity sha512-bz+eDcGx+LNuD6FB1c5hJk2C4ZNzh9HUimMqlcY42wphamPk40mKJTceaHbU+uacHncChwhPFIVq0ZN0BgSYTQ==
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz"

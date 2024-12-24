@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
 
         <div className="flex flex-col items-center gap-2">
           <p>Остались вопросы? Напишите нам</p>
-          <a href="mailto:info@mycompany.com" className="text-xl font-bold">
+          <a href="mailto:info@mycompany.com" className="text-xl font-bold hover:underline">
             pochta@gmail.com
           </a>
           <div className="flex justify-center gap-3 mt-2 text-3xl text-primary">

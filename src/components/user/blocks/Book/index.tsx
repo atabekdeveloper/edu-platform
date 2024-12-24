@@ -1,9 +1,10 @@
 import { Button, Skeleton } from 'antd';
 import React from 'react';
 import { IoBookmarkOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'src/hooks';
 import { useGetBooksQuery } from 'src/services/index.api';
-import { useFilterBookStore } from 'src/store';
+import { useAuthPersistStore, useFilterBookStore } from 'src/store';
 
 interface IBook {
   id: string;
@@ -14,6 +15,11 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
   const [limit, setLimit] = React.useState(10);
   const { title, categoryId } = useFilterBookStore();
   const debounceTitle = useDebounce(title);
+
+  const token = useAuthPersistStore((state) => state.accessToken);
+
+  const navigate = useNavigate();
+
   const {
     data: books,
     isLoading,
@@ -41,8 +47,12 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
             <h3 className="pb-1 text-lg text-primary">{el.title}</h3>
             <h4 className="text-[#8d8d8d] pb-3">{el.author}</h4>
             <div className="flex items-center gap-3">
-              <Button block type="primary">
-                Смотреть
+              <Button
+                block
+                type="primary"
+                onClick={() => (token ? navigate(el._id) : navigate('/login'))}
+              >
+                Подробно
               </Button>
               <button>
                 <IoBookmarkOutline size={24} />

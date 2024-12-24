@@ -1,4 +1,5 @@
 import { NotFound } from './404';
+import { Book } from './Book';
 import { Home } from './Home';
 
-export { Home, NotFound };
+export { Book, Home, NotFound };

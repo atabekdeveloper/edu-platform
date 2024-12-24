@@ -3,12 +3,24 @@ import { TGetParamsChange } from 'src/services/index.types';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { fetchCreateBook, fetchDeleteBook, fetchGetBooks, fetchUpdateBook } from './book.services';
+import {
+  fetchCreateBook,
+  fetchDeleteBook,
+  fetchGetBookItem,
+  fetchGetBooks,
+  fetchUpdateBook,
+} from './book.services';
 import { TBookItemParams } from './book.types';
 
 const useGetBooksQuery = (params: TGetParamsChange & TBookItemParams) =>
   useQuery({
     queryFn: () => fetchGetBooks(params),
+    queryKey: ['book', ...Object.values(params)],
+    onError: (err: any) => message.error(err.response.data.meta.message),
+  });
+const useGetBookItemQuery = (params: { id: string }) =>
+  useQuery({
+    queryFn: () => fetchGetBookItem(params),
     queryKey: ['book', ...Object.values(params)],
     onError: (err: any) => message.error(err.response.data.meta.message),
   });
@@ -49,4 +61,10 @@ const useDeleteBookMutation = () => {
   });
 };
 
-export { useCreateBookMutation, useDeleteBookMutation, useGetBooksQuery, useUpdateBookMutation };
+export {
+  useCreateBookMutation,
+  useDeleteBookMutation,
+  useGetBookItemQuery,
+  useGetBooksQuery,
+  useUpdateBookMutation,
+};

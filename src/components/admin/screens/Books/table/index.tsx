@@ -41,6 +41,7 @@ const BooksTable: React.FC = () => {
     error,
   } = useGetBooksQuery({
     page: currentPage,
+    count: 10,
     author: debounceAuthor,
     title: debounceTitle,
     categoryId: categoryId || null,

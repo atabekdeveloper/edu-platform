@@ -22,13 +22,21 @@ export const formatNum = <T extends number | string>(value: T): string =>
 // Возвращает значение или дефолтное значение '-'
 export const formatEmptyValue = (value?: string): string => value || '-';
 
-export function removeProperties(obj: any, props: string[]) {
+export function removeProperties(obj: any, props: string[], deleteProps?: string[]) {
   const newObj = { ...obj };
+
+  // Удаляем свойства из props с проверкой
   props.forEach((prop) => {
     if (newObj[prop] === undefined || newObj[prop] === null || newObj[prop] === '') {
       delete newObj[prop];
     }
   });
+
+  // Удаляем свойства из deleteProps без проверки
+  deleteProps?.forEach((prop) => {
+    delete newObj[prop];
+  });
+
   return newObj;
 }
 export function capitalizeFirstLetter(str: string) {

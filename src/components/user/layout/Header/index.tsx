@@ -11,7 +11,16 @@ import { HeaderLang } from './HeaderLang';
 const Header: React.FC = () => {
   const { title, setTitle } = useFilterBookStore();
   const token = useAuthPersistStore((state) => state.accessToken);
+  const signOut = useAuthPersistStore((state) => state.signOut);
   const navigate = useNavigate();
+  const onLoginClick = (e: any) => {
+    if (token && confirm('Уверены, что хотите выйти?')) {
+      signOut();
+      e.prevetDefault();
+    } else if (!token) {
+      navigate('/login');
+    }
+  };
   return (
     <header className="container relative flex justify-between gap-5 py-7">
       <div className="items-center hidden gap-5 lg:flex">
@@ -66,12 +75,7 @@ const Header: React.FC = () => {
           <CiBookmark />
         </button>
 
-        <Button
-          className="w-20 lg:w-28"
-          type="primary"
-          size="large"
-          onClick={() => navigate('/login')}
-        >
+        <Button className="w-20 lg:w-28" type="primary" size="large" onClick={onLoginClick}>
           {token ? 'Выйти' : 'Войти'}
         </Button>
       </div>
