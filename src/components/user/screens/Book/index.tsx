@@ -1,3 +1,4 @@
+import WebViewer from '@pdftron/webviewer';
 import { Button, Skeleton } from 'antd';
 import React from 'react';
 import { CiBookmark } from 'react-icons/ci';
@@ -8,15 +9,36 @@ import { useLangPersistStore } from 'src/store';
 import { capitalizeFirstLetter } from 'src/utils';
 import { BookModal } from './BookModal';
 
+import bookPdf from 'src/assets/Парадокс Шимпанзе. Менеджмент мозга.pdf';
+
 const Book: React.FC = () => {
   const { id } = useParams();
   const [bookModal, setBookModal] = React.useState(false);
+  const [isInitialized, setIsInitialized] = React.useState(false); // Флаг для предотвращения повторной инициализации
+
   const { data: book, isLoading } = useGetBookItemQuery({ id: `${id}` });
 
+  const workBookRef = React.useRef<HTMLDivElement>(null);
+  const studentBookRef = React.useRef<HTMLDivElement>(null);
+
   const lang = useLangPersistStore((state) => state.lang);
+
+  React.useEffect(() => {
+    if (bookModal && !isInitialized) {
+      WebViewer({ path: 'lib', initialDoc: bookPdf }, workBookRef.current as HTMLDivElement);
+      WebViewer({ path: 'lib', initialDoc: bookPdf }, studentBookRef.current as HTMLDivElement);
+      setIsInitialized(true); // Устанавливаем флаг после выполнения
+    }
+  }, [bookModal, isInitialized]);
+
   return (
     <section className="container">
-      <BookModal bookModal={bookModal} setBookModal={setBookModal} />
+      <BookModal
+        workBookRef={workBookRef}
+        studentBookRef={studentBookRef}
+        bookModal={bookModal}
+        setBookModal={setBookModal}
+      />
       <div className="flex items-center gap-3 pb-7">
         <Link to="/">Главная</Link>
         <span className="border border-black rounded-sm">
