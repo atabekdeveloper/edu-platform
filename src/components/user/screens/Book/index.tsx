@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import WebViewer from '@pdftron/webviewer';
 import { Button, Skeleton } from 'antd';
 import React from 'react';
@@ -54,24 +55,39 @@ const Book: React.FC = () => {
           <div className="flex flex-col gap-10 md:flex-row">
             <div className="flex-[0_1_30%]">
               <Img
-                className="rounded-md"
+                className="w-full rounded-md"
                 src={`${book?.data.imageUrl}`}
                 alt={book?.data.title}
-                unloader={<img className="rounded-md" src={notBook} alt={book?.data.title} />}
+                unloader={
+                  <img className="w-full rounded-md" src={notBook} alt={book?.data.title} />
+                }
               />
             </div>
             <div className="flex-[0_1_70%] flex flex-col gap-4">
               <h2 className="pb-0 title">{book?.data.title}</h2>
-              <ul>
+              <ul className="flex flex-wrap gap-2">
                 {book?.data.tags?.map((el: any) => (
-                  <li key={el._id}>{el[`name${capitalizeFirstLetter(lang)}`]}</li>
+                  <li
+                    className="px-3 py-2 rounded-lg bg-black/5 text-[#5B6871] text-sm"
+                    key={el._id}
+                  >
+                    {el[`name${capitalizeFirstLetter(lang)}`]}
+                  </li>
                 ))}
               </ul>
-              <ul className="flex flex-col gap-1">
+              <ul className="flex flex-col gap-2">
                 <li className="flex gap-1">
                   <span>Автор</span>
                   <span className="block w-full border-b border-dashed"></span>
                   <span className="text-nowrap">{book?.data.author}</span>
+                </li>
+                <li className="flex gap-1">
+                  <span>Категория</span>
+                  <span className="block w-full border-b border-dashed"></span>
+                  <span className="text-nowrap">
+                    {/* @ts-ignore */}
+                    {book?.data.categoryId[`name${capitalizeFirstLetter(lang)}`]}
+                  </span>
                 </li>
                 <li className="flex gap-1">
                   <span>ISBN</span>

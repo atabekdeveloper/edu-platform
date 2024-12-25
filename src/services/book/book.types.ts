@@ -10,6 +10,7 @@ export type TBookItem = {
   pdfUrl: string;
   workBookPdfUrl: string;
   category: TCategoryItem;
+  categoryId: TCategoryItem;
   description: string;
   tags: TTagItem[];
 };

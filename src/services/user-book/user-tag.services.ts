@@ -9,7 +9,9 @@ export const fetchGetUserBooks = async (params: TGetParamsChange): Promise<SR<TU
   });
   return res.data;
 };
-export const fetchCreateUserBook = async (values: TUserBookItem): Promise<SRO<TUserBookChange>> => {
+export const fetchCreateUserBook = async (values: {
+  bookId: string;
+}): Promise<SRO<TUserBookChange>> => {
   const res = await api.post('/user-book', values);
   return res.data;
 };

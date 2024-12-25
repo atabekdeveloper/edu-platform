@@ -67,11 +67,17 @@ const Header: React.FC = () => {
       </div>
       <div className="flex items-center gap-3 lg:gap-5">
         <HeaderLang />
-        <button className="flex-col items-center justify-center hidden lg:flex">
+        <button
+          className="flex-col items-center justify-center hidden lg:flex"
+          onClick={() => navigate('/mybook')}
+        >
           <CiBookmark size={24} />
           <span className="text-sm">Избранное</span>
         </button>
-        <button className="px-3 py-2 rounded-md custom-icon lg:hidden">
+        <button
+          className="px-3 py-2 rounded-md custom-icon lg:hidden"
+          onClick={() => navigate('/mybook')}
+        >
           <CiBookmark />
         </button>
 

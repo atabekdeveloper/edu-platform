@@ -8,7 +8,7 @@ import {
   Users,
 } from 'src/components/admin/screens';
 
-import { Book, Home as UserHome } from 'src/components/user/screens';
+import { Book, MyBook, Home as UserHome } from 'src/components/user/screens';
 
 const adminRoutes = [
   { path: '/admin/', element: <AdminHome /> },
@@ -23,6 +23,7 @@ const adminRoutes = [
 const userRoutes = [
   { path: '/', element: <UserHome /> },
   { path: '/:id', element: <Book /> },
+  { path: '/mybook', element: <MyBook /> },
   { path: '*', element: <NotFound /> },
 ];
 

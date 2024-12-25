@@ -1,11 +1,11 @@
 import { Button, Skeleton } from 'antd';
 import React from 'react';
-import { IoBookmarkOutline } from 'react-icons/io5';
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Img } from 'react-image';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'src/hooks';
 import { useGetBooksQuery } from 'src/services/index.api';
-import { useAuthPersistStore, useFilterBookStore } from 'src/store';
+import { useAuthPersistStore, useFilterBookStore, useMyBookPersistStore } from 'src/store';
 
 import notBook from 'src/assets/images/not-book.png';
 
@@ -18,6 +18,8 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
   const [limit, setLimit] = React.useState(10);
   const { title, categoryId } = useFilterBookStore();
   const debounceTitle = useDebounce(title);
+
+  const { books: localBooks, toggleBookId } = useMyBookPersistStore();
 
   const token = useAuthPersistStore((state) => state.accessToken);
 
@@ -42,12 +44,12 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
           <li className="px-4 py-5 rounded-md shadow" key={el._id}>
             <div className="px-2 mb-4">
               <Img
-                className="object-cover w-full h-full md:h-[200px] rounded-md"
+                className="object-cover w-full h-full md:h-[300px] lg:h-[300px] xl:h-[200px] rounded-md"
                 src={el.imageUrl}
                 alt={el.title}
                 unloader={
                   <img
-                    className="object-contain w-full h-full md:h-[200px] rounded-md"
+                    className="object-contain w-full h-full md:h-[300px] lg:h-[300px] xl:h-[200px] rounded-md"
                     src={notBook}
                     alt={el.title}
                   />
@@ -64,8 +66,12 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
               >
                 Подробно
               </Button>
-              <button>
-                <IoBookmarkOutline size={24} />
+              <button onClick={() => toggleBookId({ id: el._id })}>
+                {localBooks.includes(el._id) ? (
+                  <IoBookmark className="text-primary" size={24} />
+                ) : (
+                  <IoBookmarkOutline size={24} />
+                )}
               </button>
             </div>
           </li>
