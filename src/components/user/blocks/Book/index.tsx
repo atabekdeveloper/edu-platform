@@ -1,10 +1,13 @@
 import { Button, Skeleton } from 'antd';
 import React from 'react';
 import { IoBookmarkOutline } from 'react-icons/io5';
+import { Img } from 'react-image';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'src/hooks';
 import { useGetBooksQuery } from 'src/services/index.api';
 import { useAuthPersistStore, useFilterBookStore } from 'src/store';
+
+import notBook from 'src/assets/images/not-book.png';
 
 interface IBook {
   id: string;
@@ -38,10 +41,17 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
         {books?.data.map((el) => (
           <li className="px-4 py-5 rounded-md shadow" key={el._id}>
             <div className="px-2 mb-4">
-              <img
-                className="object-cover w-full h-[200px] rounded-md"
+              <Img
+                className="object-cover w-full h-full md:h-[200px] rounded-md"
                 src={el.imageUrl}
                 alt={el.title}
+                unloader={
+                  <img
+                    className="object-contain w-full h-full md:h-[200px] rounded-md"
+                    src={notBook}
+                    alt={el.title}
+                  />
+                }
               />
             </div>
             <h3 className="pb-1 text-lg text-primary">{el.title}</h3>

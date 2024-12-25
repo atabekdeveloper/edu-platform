@@ -43,3 +43,9 @@ export function capitalizeFirstLetter(str: string) {
   if (!str) return ''; // Проверка на пустую строку
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+export function isValidImage(url: string) {
+  const img = new Image();
+  img.onload = () => true; // Успешно загружено
+  img.onerror = () => false; // Ошибка загрузки
+  img.src = url;
+}
