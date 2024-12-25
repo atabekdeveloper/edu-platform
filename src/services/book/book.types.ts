@@ -8,6 +8,7 @@ export type TBookItem = {
   isbn: string;
   imageUrl: string;
   pdfUrl: string;
+  workBookPdfUrl: string;
   category: TCategoryItem;
   description: string;
   tags: TTagItem[];

@@ -1,4 +1,3 @@
-import WebViewer from '@pdftron/webviewer';
 import { Button, Skeleton } from 'antd';
 import React from 'react';
 import { CiBookmark } from 'react-icons/ci';
@@ -7,21 +6,17 @@ import { Link, useParams } from 'react-router-dom';
 import { useGetBookItemQuery } from 'src/services/index.api';
 import { useLangPersistStore } from 'src/store';
 import { capitalizeFirstLetter } from 'src/utils';
-
-import bookPdf from 'src/assets/Парадокс Шимпанзе. Менеджмент мозга.pdf';
+import { BookModal } from './BookModal';
 
 const Book: React.FC = () => {
   const { id } = useParams();
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [bookModal, setBookModal] = React.useState(false);
   const { data: book, isLoading } = useGetBookItemQuery({ id: `${id}` });
 
   const lang = useLangPersistStore((state) => state.lang);
-
-  React.useEffect(() => {
-    WebViewer({ path: 'lib', initialDoc: bookPdf }, containerRef.current as HTMLDivElement);
-  }, []);
   return (
     <section className="container">
+      <BookModal bookModal={bookModal} setBookModal={setBookModal} />
       <div className="flex items-center gap-3 pb-7">
         <Link to="/">Главная</Link>
         <span className="border border-black rounded-sm">
@@ -55,7 +50,12 @@ const Book: React.FC = () => {
                 </li>
               </ul>
               <div className="flex gap-5">
-                <Button className="w-[240px]" type="primary" size="large">
+                <Button
+                  className="w-[240px]"
+                  type="primary"
+                  size="large"
+                  onClick={() => setBookModal(true)}
+                >
                   Начать задание
                 </Button>
                 <button>
@@ -67,9 +67,6 @@ const Book: React.FC = () => {
           <p>{book?.data.description}</p>
         </div>
         {isLoading && <Skeleton />}
-      </div>
-      <div className="w-full h-[500px]">
-        <div ref={containerRef} className="w-full h-[500px]"></div>
       </div>
     </section>
   );
