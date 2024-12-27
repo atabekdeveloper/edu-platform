@@ -66,7 +66,7 @@ const MyBook: React.FC = () => {
                   <Button
                     block
                     type="primary"
-                    onClick={() => (token ? navigate(el._id) : navigate('/login'))}
+                    onClick={() => (token ? navigate(`/${el._id}`) : navigate('/login'))}
                   >
                     Подробно
                   </Button>
