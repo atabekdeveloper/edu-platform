@@ -6,6 +6,9 @@ export type TUserItem = {
   lastUpdatedAt: string;
   login: string;
   password: string;
+  age: string;
+  step: number;
+  isVerify: boolean;
   role: TRoleItemTypes;
   __v: number;
 };

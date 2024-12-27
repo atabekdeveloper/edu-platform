@@ -25,6 +25,12 @@ export const useColumnsTable = () => {
       render: (value) => value || '-',
     },
     {
+      title: t('age'),
+      dataIndex: 'age',
+      key: 'age',
+      render: (value) => <span className="text-nowrap">{value || '-'}</span>,
+    },
+    {
       title: t('phone'),
       dataIndex: 'phone',
       key: 'phone',
@@ -40,13 +46,13 @@ export const useColumnsTable = () => {
       title: t('createdAt'),
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (value) => value || '-',
+      render: (value: string) => <span className="text-nowrap">{value.split('T')[0] || '-'}</span>,
     },
     {
       title: t('lastUpdatedAt'),
       dataIndex: 'lastUpdatedAt',
       key: 'lastUpdatedAt',
-      render: (value) => value || '-',
+      render: (value: string) => <span className="text-nowrap">{value.split('T')[0] || '-'}</span>,
     },
     {
       title: t('action'),

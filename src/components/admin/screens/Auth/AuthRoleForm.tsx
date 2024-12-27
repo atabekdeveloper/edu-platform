@@ -4,9 +4,9 @@ import { PiSuitcase } from 'react-icons/pi';
 import { TbUser } from 'react-icons/tb';
 
 const roleItems = [
-  { value: 'parent', title: 'Студент', desc: 'Описание', icon: <TbUser size={20} /> },
+  { value: 'student', title: 'Студент', desc: 'Описание', icon: <TbUser size={20} /> },
   { value: 'teacher', title: 'Учитель', desc: 'Описание', icon: <PiSuitcase size={20} /> },
-  { value: 'student', title: 'Родитель', desc: 'Описание', icon: <FiUsers size={20} /> },
+  { value: 'parent', title: 'Родитель', desc: 'Описание', icon: <FiUsers size={20} /> },
 ];
 interface IAuthRoleForm {
   role: string;

@@ -91,7 +91,7 @@ const BooksForm: React.FC = () => {
           </Form.Item>
         </div>
         {/* Select Section */}
-        <Form.Item name="videos" label={t('video')} rules={[{ required: true, message: '' }]}>
+        <Form.Item name="videos" label={t('video')} rules={[{ required: false, message: '' }]}>
           <Select mode="tags" />
         </Form.Item>
         <Form.Item
@@ -119,7 +119,12 @@ const BooksForm: React.FC = () => {
             }))}
           />
         </Form.Item>
-        <FileInput label={t('photo')} name="image" accept=".jpg, .jpeg, .png" required={false} />
+        <FileInput
+          label={t('photo')}
+          name="image"
+          accept=".jpg, .jpeg, .png"
+          required={!paramsForm}
+        />
         <FileInput
           label={t('studentBook')}
           name="book"

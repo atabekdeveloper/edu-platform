@@ -2,16 +2,13 @@ import React from 'react';
 import { MdEmail } from 'react-icons/md';
 import { PiInstagramLogoFill, PiTelegramLogoBold } from 'react-icons/pi';
 
-import logo from 'src/assets/images/logo.svg';
+import logo from 'src/assets/images/logo.png';
 
 const Footer: React.FC = () => {
   return (
     <footer className="py-10 mt-5 border-t">
       <div className="container flex flex-col items-center justify-center gap-8 md:items-start md:flex-row md:justify-between">
-        <div className="flex items-center gap-2">
-          <img className="max-w-[140px]" src={logo} alt="Logo" />
-          <h3 className="text-primary">EDU Platform</h3>
-        </div>
+        <img className="max-w-[140px]" src={logo} alt="Logo" />
 
         <div className="flex flex-col items-center gap-2">
           <p>Остались вопросы? Напишите нам</p>

@@ -9,7 +9,7 @@ export default {
       colors() {
         return {
           primary: {
-            DEFAULT: '#2356CE',
+            DEFAULT: '#3783C5',
           },
         };
       },

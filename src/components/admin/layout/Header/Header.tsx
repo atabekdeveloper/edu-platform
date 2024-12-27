@@ -8,7 +8,7 @@ import { useResponsive } from 'src/hooks';
 import { useToggleStore } from 'src/store';
 import { HeaderSetting } from './HeaderSetting';
 
-import logo from 'src/assets/images/logo.svg';
+import logo from 'src/assets/images/logo.png';
 import { HeaderLang } from './HeaderLang';
 
 const Header: React.FC = () => {
@@ -21,8 +21,7 @@ const Header: React.FC = () => {
     <header className="flex items-center justify-between w-full min-h-[80px] fixed z-[500] bg-white px-5 top-0">
       <div className="flex items-center justify-between gap-3 basis-[245px] px-2">
         <div className="flex items-center gap-2 max900:hidden">
-          <img className="max-w-[140px]" src={logo} alt="Logo" />
-          <h3>EDU Platform</h3>
+          <img className="max-w-[120px]" src={logo} alt="Logo" />
         </div>
         <button className="py-2 rounded-md custom-icon" onClick={onToggleDrawer}>
           <RxHamburgerMenu />

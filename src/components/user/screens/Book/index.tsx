@@ -2,23 +2,25 @@
 import WebViewer from '@pdftron/webviewer';
 import { Button, Skeleton } from 'antd';
 import React from 'react';
-import { CiBookmark } from 'react-icons/ci';
 import { GoArrowRight } from 'react-icons/go';
 import { Img } from 'react-image';
 import { Link, useParams } from 'react-router-dom';
 import { useGetBookItemQuery } from 'src/services/index.api';
-import { useLangPersistStore } from 'src/store';
-import { capitalizeFirstLetter } from 'src/utils';
+import { useLangPersistStore, useMyBookPersistStore } from 'src/store';
+import { capitalizeFirstLetter, isYouTubeVideoUrl } from 'src/utils';
 import { BookModal } from './BookModal';
 
 import bookPdf from 'src/assets/Парадокс Шимпанзе. Менеджмент мозга.pdf';
 
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import notBook from 'src/assets/images/not-book.png';
 
 const Book: React.FC = () => {
   const { id } = useParams();
   const [bookModal, setBookModal] = React.useState(false);
-  const [isInitialized, setIsInitialized] = React.useState(false); // Флаг для предотвращения повторной инициализации
+  const [isInitialized, setIsInitialized] = React.useState(false);
+
+  const { books: localBooks, toggleBookId } = useMyBookPersistStore();
 
   const { data: book, isLoading } = useGetBookItemQuery({ id: `${id}` });
 
@@ -104,13 +106,31 @@ const Book: React.FC = () => {
                 >
                   Начать задание
                 </Button>
-                <button>
-                  <CiBookmark size={24} />
+                <button onClick={() => toggleBookId({ id: `${book?.data._id}` })}>
+                  {localBooks.includes(`${book?.data._id}`) ? (
+                    <IoBookmark className="text-primary" size={24} />
+                  ) : (
+                    <IoBookmarkOutline size={24} />
+                  )}
                 </button>
               </div>
             </div>
           </div>
           <p>{book?.data.description}</p>
+          <div className="grid grid-cols-2 gap-5">
+            {book?.data.videos
+              .filter((value) => isYouTubeVideoUrl(value))
+              .map((link) => (
+                <iframe
+                  className="w-full h-[300px]"
+                  src={link}
+                  title="React 19: Новые хуки, которые вы ждали"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              ))}
+          </div>
         </div>
         {isLoading && <Skeleton />}
       </div>

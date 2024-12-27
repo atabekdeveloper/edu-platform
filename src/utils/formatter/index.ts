@@ -49,3 +49,25 @@ export function isValidImage(url: string) {
   img.onerror = () => false; // Ошибка загрузки
   img.src = url;
 }
+export function isYouTubeVideoUrl(url: string) {
+  try {
+    const parsedUrl = new URL(url);
+    const hostname = parsedUrl.hostname;
+
+    // Проверяем, принадлежит ли URL YouTube
+    const isYouTube =
+      hostname === 'www.youtube.com' || hostname === 'youtube.com' || hostname === 'youtu.be';
+
+    // Проверяем наличие параметра `v` для основного URL (www.youtube.com или youtube.com)
+    const isVideo =
+      isYouTube && (hostname === 'www.youtube.com' || hostname === 'youtube.com')
+        ? parsedUrl.searchParams.has('v')
+        : hostname === 'youtu.be'; // Сокращенные ссылки YouTube
+
+    return isYouTube && isVideo;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e) {
+    // Если URL некорректный, возвращаем false
+    return false;
+  }
+}

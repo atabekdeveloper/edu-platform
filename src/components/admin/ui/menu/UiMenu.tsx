@@ -8,9 +8,9 @@ const UiMenu: React.FC<MenuProps> = (_props) => (
         Menu: {
           groupTitleColor: '#121926',
           itemHoverBg: '#E3F2FD',
-          itemSelectedColor: '#2356CE',
+          itemSelectedColor: '#3783C5',
           subMenuItemBg: '#fff',
-          colorPrimary: '#2356CE',
+          colorPrimary: '#3783C5',
           controlItemBgActive: '#E3F2FD',
           groupTitleFontSize: 14,
         },

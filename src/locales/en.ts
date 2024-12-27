@@ -20,6 +20,7 @@ export const en = {
     studentBook: 'Student Book',
     workBook: 'Workbook',
     bookCount: 'Book Count',
+    age: 'Age',
     // form
     video: 'Video',
     save: 'Save',

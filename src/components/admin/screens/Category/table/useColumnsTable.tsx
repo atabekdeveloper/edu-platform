@@ -37,18 +37,6 @@ export const useColumnsTable = () => {
       render: (value) => value || '-',
     },
     {
-      title: t('createdAt'),
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      render: (value: string) => value.split('T')[0] || '-',
-    },
-    {
-      title: t('lastUpdatedAt'),
-      dataIndex: 'lastUpdatedAt',
-      key: 'lastUpdatedAt',
-      render: (value: string) => value.split('T')[0] || '-',
-    },
-    {
       title: t('action'),
       dataIndex: 'action',
       key: 'action',

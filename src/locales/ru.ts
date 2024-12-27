@@ -20,6 +20,7 @@ export const ru = {
     studentBook: 'Основная книга',
     workBook: 'Рабочая книга',
     bookCount: 'Количество книг',
+    age: 'Возраст',
     // form
     video: 'Видео',
     save: 'Сохранить',
@@ -37,7 +38,7 @@ export const ru = {
     oldPassword: 'Старый пароль',
     confirmPassword: 'Подтвердить пароль',
     editPassword: 'Изменить пароль',
-    logout: 'Выход',
+    logout: 'Выйти',
     // message
     deleteBook: 'Удалить книгу',
     deleteUser: 'Удалить пользователь',

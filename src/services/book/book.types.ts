@@ -12,6 +12,7 @@ export type TBookItem = {
   category: TCategoryItem;
   categoryId: TCategoryItem;
   description: string;
+  videos: string[];
   tags: TTagItem[];
 };
 export type TBookChange = {

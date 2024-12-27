@@ -1,60 +1,20 @@
-import { Button, Popover } from 'antd';
+import { Avatar, Button, Popover } from 'antd';
 import React from 'react';
-import { CiBookmark } from 'react-icons/ci';
+import { CiBookmark, CiUser } from 'react-icons/ci';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
-import logo from 'src/assets/images/logo.svg';
+import logo from 'src/assets/images/logo.png';
 import { useAuthPersistStore, useFilterBookStore } from 'src/store';
 import { HeaderLang } from './HeaderLang';
 
 const Header: React.FC = () => {
   const { title, setTitle } = useFilterBookStore();
   const token = useAuthPersistStore((state) => state.accessToken);
-  const signOut = useAuthPersistStore((state) => state.signOut);
   const navigate = useNavigate();
-  const onLoginClick = (e: any) => {
-    if (token && confirm('Уверены, что хотите выйти?')) {
-      signOut();
-      e.prevetDefault();
-    } else if (!token) {
-      navigate('/login');
-    }
-  };
   return (
     <header className="container relative flex justify-between gap-5 py-7">
-      <div className="items-center hidden gap-5 lg:flex">
-        <div className="items-center hidden gap-2 lg:flex">
-          <img className="max-w-[140px]" src={logo} alt="Logo" />
-          <h3 className="text-primary">EDU Platform</h3>
-        </div>
-      </div>
-      <div className="flex items-center gap-3">
-        <div className="flex flex-col items-center gap-2 md:flex-row lg:hidden">
-          <img className="max-w-[140px]" src={logo} alt="Logo" />
-        </div>
-        <Popover
-          content={
-            <div className="relative">
-              <IoSearchOutline className="absolute -translate-y-1/2 top-1/2 left-1" />
-              <input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="pl-7 outline-none bg-[#fff] rounded-md placeholder:text-black w-full"
-                placeholder="Поиск"
-              />
-            </div>
-          }
-          placement="bottom"
-          overlayStyle={{ width: '100%', padding: '5px 20px' }}
-          arrow={false}
-          trigger="click"
-        >
-          <button className="flex py-2 rounded-md custom-icon lg:hidden">
-            <IoSearchOutline />
-          </button>
-        </Popover>
-      </div>
+      <img className="max-w-[70px] md:max-w-[120px]" src={logo} alt="Logo" />
 
       <div className="relative max-w-[400px] w-full lg:block hidden">
         <IoSearchOutline className="absolute -translate-y-1/2 top-1/2 left-3" />
@@ -80,10 +40,40 @@ const Header: React.FC = () => {
         >
           <CiBookmark />
         </button>
+        <Popover
+          content={
+            <div className="relative">
+              <IoSearchOutline className="absolute -translate-y-1/2 top-1/2 left-1" />
+              <input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="pl-7 outline-none bg-[#fff] rounded-md placeholder:text-black w-full"
+                placeholder="Поиск"
+              />
+            </div>
+          }
+          placement="bottom"
+          overlayStyle={{ width: '100%', padding: '5px 20px' }}
+          arrow={false}
+          trigger="click"
+        >
+          <button className="flex py-2 rounded-md custom-icon lg:hidden">
+            <IoSearchOutline />
+          </button>
+        </Popover>
 
-        <Button className="w-20 lg:w-28" type="primary" size="large" onClick={onLoginClick}>
-          {token ? 'Выйти' : 'Войти'}
-        </Button>
+        {!token ? (
+          <Button
+            className="w-20 lg:w-28"
+            type="primary"
+            size="large"
+            onClick={() => navigate('/login')}
+          >
+            Войти
+          </Button>
+        ) : (
+          <Avatar className="cursor-pointer bg-primary" size={40} icon={<CiUser />} />
+        )}
       </div>
     </header>
   );

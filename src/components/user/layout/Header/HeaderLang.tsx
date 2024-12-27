@@ -47,7 +47,7 @@ const HeaderLang: React.FC = () => {
       trigger="click"
     >
       <button className="flex items-center gap-2 px-3 py-1 border rounded-md lg:py-2">
-        <span className="uppercase">{lang}</span>
+        <span className="hidden uppercase md:block">{lang}</span>
         <img className="w-5 h-5" src={langItems.find((el) => el.value === lang)?.img} alt={lang} />
       </button>
     </Popover>

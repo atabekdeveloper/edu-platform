@@ -87,22 +87,20 @@ const AuthLogin: React.FC = () => {
     <div className="flex h-screen overflow-hidden bg-white">
       <div className="flex-[0_1_58%] relative items-center justify-center hidden lg:flex">
         <img className="absolute object-cover w-full h-full" src={banner} alt="Banner" />
-        <div className="absolute w-full h-full bg-[#175EC3]/60"></div>
+        <div className="absolute w-full h-full bg-primary/60"></div>
         <div className="relative max-w-[550px] px-5 xl:max-w-[750px]">
-          <div className="flex items-center gap-3 mb-20 text-3xl text-white">
-            <img src={logo} alt="Logo" />
-            <h2>EDU Platform</h2>
+          <div className="pb-16">
+            <img className="w-full max-w-[150px]" src={logo} alt="Logo" />
           </div>
           <div className="relative text-white">
             <img className="absolute top-0 left-0" src={stuck} alt="Stuck" />
             <img className="absolute bottom-0 right-0" src={edge} alt="Edge" />
             <p className="pb-16 text-3xl pt-14">
-              Lorem ipsum dolor sit amet consectetur. Dui eget sociis urna est facilisis ultricies
-              sit dolor elementum. Vel elementum faucibus molestie ut eget facilisis. Vel venenatis
-              metus leo rhoncus metus ut ipsum metus viverra. Commodo et lectus libero nisl id
-              aenean purus turpis nunc.
+              Если деньги – это ваша единственная надежда на независимость, вы никогда не получите
+              ее. Единственная реальная защита в этом мире, которую может иметь человек, – это запас
+              знаний, опыта и способностей.
             </p>
-            <h4 className="absolute bottom-0 text-2xl">Автор цитаты</h4>
+            <h4 className="absolute bottom-0 text-2xl">Генри Форд</h4>
           </div>
         </div>
       </div>

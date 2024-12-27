@@ -20,6 +20,7 @@ export const uz = {
     studentBook: 'Asosiy kitob',
     workBook: 'Ish daftari',
     bookCount: 'Kitoblar soni',
+    age: 'Yoshi',
     // form
     video: 'Video',
     save: 'Saqlash',
