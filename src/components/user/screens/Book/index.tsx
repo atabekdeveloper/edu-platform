@@ -7,7 +7,7 @@ import { Img } from 'react-image';
 import { Link, useParams } from 'react-router-dom';
 import { useGetBookItemQuery } from 'src/services/index.api';
 import { useLangPersistStore, useMyBookPersistStore } from 'src/store';
-import { capitalizeFirstLetter, isYouTubeVideoUrl } from 'src/utils';
+import { capitalizeFirstLetter, convertToEmbedUrl, isYouTubeVideoUrl } from 'src/utils';
 import { BookModal } from './BookModal';
 
 import bookPdf from 'src/assets/Парадокс Шимпанзе. Менеджмент мозга.pdf';
@@ -123,8 +123,7 @@ const Book: React.FC = () => {
               .map((link) => (
                 <iframe
                   className="w-full h-[300px]"
-                  src={link}
-                  title="React 19: Новые хуки, которые вы ждали"
+                  src={convertToEmbedUrl(link)}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen

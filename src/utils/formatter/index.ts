@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Преобразует текст в нижний регистр
 export const lowerCase = (text: string): string => text.toLowerCase();
 
@@ -65,9 +66,25 @@ export function isYouTubeVideoUrl(url: string) {
         : hostname === 'youtu.be'; // Сокращенные ссылки YouTube
 
     return isYouTube && isVideo;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     // Если URL некорректный, возвращаем false
     return false;
+  }
+}
+export function convertToEmbedUrl(url: string) {
+  try {
+    const parsedUrl = new URL(url);
+
+    // Извлекаем ID видео в зависимости от формата ссылки
+    const videoId =
+      parsedUrl.hostname === 'youtu.be'
+        ? parsedUrl.pathname.slice(1)
+        : parsedUrl.searchParams.get('v');
+
+    // Формируем embed URL, если найден ID
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+  } catch {
+    // Возвращаем исходный URL, если произошла ошибка
+    return url;
   }
 }
