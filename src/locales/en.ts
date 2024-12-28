@@ -37,6 +37,7 @@ export const en = {
     newPassword: 'New Password',
     oldPassword: 'Old Password',
     confirmPassword: 'Confirm Password',
+    confirmPasswordMessage: 'The new password you entered does not match!',
     editPassword: 'Change Password',
     logout: 'Logout',
     // message

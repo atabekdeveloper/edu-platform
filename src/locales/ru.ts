@@ -37,6 +37,7 @@ export const ru = {
     newPassword: 'Новый пароль',
     oldPassword: 'Старый пароль',
     confirmPassword: 'Подтвердить пароль',
+    confirmPasswordMessage: 'Новый пароль, который вы ввели, не соответствует!',
     editPassword: 'Изменить пароль',
     logout: 'Выйти',
     // message

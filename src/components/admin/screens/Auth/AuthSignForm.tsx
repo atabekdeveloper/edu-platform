@@ -64,7 +64,7 @@ const AuthSignForm: React.FC<IAuthSignForm> = ({ form, onFinish, isLoading, setA
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('Новый пароль, который вы ввели, не соответствует!'));
+              return Promise.reject(new Error(t('confirmPasswordMessage')));
             },
           }),
         ]}

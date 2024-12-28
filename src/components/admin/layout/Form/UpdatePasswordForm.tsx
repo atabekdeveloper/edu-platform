@@ -76,9 +76,7 @@ const UpdatePasswordForm: React.FC = () => {
                 if (!value || getFieldValue('newPassword') === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(
-                  new Error('Новый пароль, который вы ввели, не соответствует!'),
-                );
+                return Promise.reject(new Error(t('confirmPasswordMessage')));
               },
             }),
           ]}

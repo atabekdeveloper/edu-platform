@@ -22,7 +22,7 @@ const AuthLogin: React.FC = () => {
   const [formLogin] = Form.useForm();
   const signIn = useAuthPersistStore((state) => state.signIn);
   const navigate = useNavigate();
-  const setLang = useLangPersistStore((state) => state.setLang);
+  const { lang, setLang } = useLangPersistStore();
 
   const [activeIndex, setActiveIndex] = React.useState(1);
   const [age, setAge] = React.useState('');
@@ -108,12 +108,35 @@ const AuthLogin: React.FC = () => {
       </div>
       <div className="flex-auto lg:flex-[0_1_42%] flex items-center justify-center overflow-hidden">
         <div className="max-w-[550px] w-full">
-          <div className="flex justify-center gap-3 pb-5 lg:pb-16 lg:justify-end text-primary">
-            <button onClick={() => setLang({ lang: 'ru' })}>Ru</button>
-            <span>|</span>
-            <button onClick={() => setLang({ lang: 'eng' })}>En</button>
-            <span>|</span>
-            <button onClick={() => setLang({ lang: 'uz' })}>Uz</button>
+          <div className="flex flex-col items-center justify-center gap-1 px-5 pb-2 lg:flex-row lg:justify-between lg:pb-16">
+            <a
+              className="cursor-pointer text-primary hover:underline"
+              onClick={() => navigate('/')}
+            >
+              Главная
+            </a>
+            <div className="flex justify-center gap-3 lg:justify-end text-primary">
+              <button
+                className={`${lang === 'ru' && 'underline'}`}
+                onClick={() => setLang({ lang: 'ru' })}
+              >
+                Ru
+              </button>
+              <span>|</span>
+              <button
+                className={`${lang === 'eng' && 'underline'}`}
+                onClick={() => setLang({ lang: 'eng' })}
+              >
+                En
+              </button>
+              <span>|</span>
+              <button
+                className={`${lang === 'uz' && 'underline'}`}
+                onClick={() => setLang({ lang: 'uz' })}
+              >
+                Uz
+              </button>
+            </div>
           </div>
           <Swiper
             slidesPerView={1}

@@ -37,6 +37,7 @@ export const uz = {
     newPassword: 'Yangi parol',
     oldPassword: 'Eski parol',
     confirmPassword: 'Parolni tasdiqlang',
+    confirmPasswordMessage: 'Siz kiritgan yangi parol mos emas!',
     editPassword: 'Parolni o‘zgartirish',
     logout: 'Chiqish',
     // message
