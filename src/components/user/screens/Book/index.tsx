@@ -117,12 +117,12 @@ const Book: React.FC = () => {
             </div>
           </div>
           <p>{book?.data.description}</p>
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             {book?.data.videos
               .filter((value) => isYouTubeVideoUrl(value))
               .map((link) => (
                 <iframe
-                  className="w-full h-[300px]"
+                  className="w-full h-[200px] md:h-[250px] lg:h-[300px]"
                   src={convertToEmbedUrl(link)}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
