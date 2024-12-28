@@ -33,7 +33,7 @@ const useDeleteUserBookMutation = () => {
       client.invalidateQueries({ queryKey: ['user-book'] });
       message.success(res.meta.message);
     },
-    onError: handleError,
+    // onError: handleError,
   });
 };
 

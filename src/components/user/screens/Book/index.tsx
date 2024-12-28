@@ -5,14 +5,14 @@ import React from 'react';
 import { GoArrowRight } from 'react-icons/go';
 import { Img } from 'react-image';
 import { Link, useParams } from 'react-router-dom';
-import { useGetBookItemQuery } from 'src/services/index.api';
-import { useLangPersistStore, useMyBookPersistStore } from 'src/store';
+import { useCreateUserBookMutation, useGetBookItemQuery } from 'src/services/index.api';
+import { useLangPersistStore } from 'src/store';
 import { capitalizeFirstLetter, convertToEmbedUrl, isYouTubeVideoUrl } from 'src/utils';
 import { BookModal } from './BookModal';
 
 import bookPdf from 'src/assets/Парадокс Шимпанзе. Менеджмент мозга.pdf';
 
-import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
+import { IoBookmarkOutline } from 'react-icons/io5';
 import notBook from 'src/assets/images/not-book.png';
 
 const Book: React.FC = () => {
@@ -20,8 +20,7 @@ const Book: React.FC = () => {
   const [bookModal, setBookModal] = React.useState(false);
   const [isInitialized, setIsInitialized] = React.useState(false);
 
-  const { books: localBooks, toggleBookId } = useMyBookPersistStore();
-
+  const { mutate: createUserBook } = useCreateUserBookMutation();
   const { data: book, isLoading } = useGetBookItemQuery({ id: `${id}` });
 
   const workBookRef = React.useRef<HTMLDivElement>(null);
@@ -106,12 +105,8 @@ const Book: React.FC = () => {
                 >
                   Начать задание
                 </Button>
-                <button onClick={() => toggleBookId({ id: `${book?.data._id}` })}>
-                  {localBooks.includes(`${book?.data._id}`) ? (
-                    <IoBookmark className="text-primary" size={24} />
-                  ) : (
-                    <IoBookmarkOutline size={24} />
-                  )}
+                <button onClick={() => createUserBook({ bookId: `${book?.data._id}` })}>
+                  <IoBookmarkOutline size={24} />
                 </button>
               </div>
             </div>
