@@ -29,14 +29,14 @@ const Header: React.FC = () => {
         <HeaderLang />
         <button
           className="flex-col items-center justify-center hidden lg:flex"
-          onClick={() => navigate('/mybook')}
+          onClick={() => (token ? navigate('/mybook') : navigate('/login'))}
         >
           <CiBookmark size={24} />
           <span className="text-sm">Избранное</span>
         </button>
         <button
           className="px-3 py-2 rounded-md custom-icon lg:hidden"
-          onClick={() => navigate('/mybook')}
+          onClick={() => (token ? navigate('/mybook') : navigate('/login'))}
         >
           <CiBookmark />
         </button>

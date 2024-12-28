@@ -4,9 +4,9 @@ import { Button, Skeleton } from 'antd';
 import React from 'react';
 import { GoArrowRight } from 'react-icons/go';
 import { Img } from 'react-image';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useCreateUserBookMutation, useGetBookItemQuery } from 'src/services/index.api';
-import { useLangPersistStore } from 'src/store';
+import { useAuthPersistStore, useLangPersistStore } from 'src/store';
 import { capitalizeFirstLetter, convertToEmbedUrl, isYouTubeVideoUrl } from 'src/utils';
 import { BookModal } from './BookModal';
 
@@ -19,6 +19,9 @@ const Book: React.FC = () => {
   const { id } = useParams();
   const [bookModal, setBookModal] = React.useState(false);
   const [isInitialized, setIsInitialized] = React.useState(false);
+  const navigate = useNavigate();
+
+  const token = useAuthPersistStore((state) => state.accessToken);
 
   const { mutate: createUserBook } = useCreateUserBookMutation();
   const { data: book, isLoading } = useGetBookItemQuery({ id: `${id}` });
@@ -105,7 +108,11 @@ const Book: React.FC = () => {
                 >
                   Начать задание
                 </Button>
-                <button onClick={() => createUserBook({ bookId: `${book?.data._id}` })}>
+                <button
+                  onClick={() =>
+                    token ? createUserBook({ bookId: `${book?.data._id}` }) : navigate('/login')
+                  }
+                >
                   <IoBookmarkOutline size={24} />
                 </button>
               </div>

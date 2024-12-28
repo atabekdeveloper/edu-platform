@@ -68,7 +68,9 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
               >
                 Подробно
               </Button>
-              <button onClick={() => createUserBook({ bookId: el._id })}>
+              <button
+                onClick={() => (token ? createUserBook({ bookId: el._id }) : navigate('/login'))}
+              >
                 <IoBookmarkOutline size={24} />
               </button>
             </div>
