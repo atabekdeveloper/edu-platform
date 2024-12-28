@@ -7,7 +7,13 @@ interface IAuthPerisistState {
   accessToken: string | null;
   roleName: TRoleItemTypes | null;
   phone: string | null;
-  signIn: (tokens: { accessToken: string; roleName: TRoleItemTypes; phone: string }) => void;
+  fullName: string | null;
+  signIn: (tokens: {
+    accessToken: string;
+    roleName: TRoleItemTypes;
+    phone: string;
+    fullName: string;
+  }) => void;
   signOut: () => void;
 }
 
@@ -17,8 +23,10 @@ export const useAuthPersistStore = create(
       accessToken: '',
       roleName: null,
       phone: '',
-      signIn: ({ accessToken, roleName, phone }) => set({ accessToken, roleName, phone }),
-      signOut: () => set({ accessToken: null, roleName: null, phone: null }),
+      fullName: '',
+      signIn: ({ accessToken, roleName, phone, fullName }) =>
+        set({ accessToken, roleName, phone, fullName }),
+      signOut: () => set({ accessToken: null, roleName: null, phone: null, fullName: null }),
     }),
     {
       name: 'token',

@@ -3,9 +3,11 @@ import { TGetParamsChange } from 'src/services/index.types';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { handleError } from 'src/utils';
 import {
   fetchCreateAdmin,
   fetchDeleteUserAdmin,
+  fetchEditUser,
   fetchGetAdmins,
   fetchGetUsers,
   fetchUpdatePasswordUserAdmin,
@@ -15,13 +17,13 @@ const useGetUsersQuery = (params: TGetParamsChange) =>
   useQuery({
     queryFn: () => fetchGetUsers(params),
     queryKey: ['user', ...Object.values(params)],
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 const useGetAdminsQuery = (params: TGetParamsChange) =>
   useQuery({
     queryFn: () => fetchGetAdmins(params),
     queryKey: ['user-admin', ...Object.values(params)],
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 
 const useCreateAdminMutation = () => {
@@ -32,10 +34,21 @@ const useCreateAdminMutation = () => {
       client.invalidateQueries({ queryKey: ['user-admin'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
+const useEditUserMutation = () => {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: fetchEditUser,
+    onSuccess: (res) => {
+      client.invalidateQueries({ queryKey: [''] });
+      message.success(res.meta.message);
+    },
+    onError: handleError,
+  });
+};
 const useUpdateUserAdminPasswordMutation = () => {
   const client = useQueryClient();
   return useMutation({
@@ -44,7 +57,7 @@ const useUpdateUserAdminPasswordMutation = () => {
       client.invalidateQueries({ queryKey: [''] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
@@ -56,7 +69,7 @@ const useDeleteUserMutation = () => {
       client.invalidateQueries({ queryKey: ['user'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 const useDeleteAdminMutation = () => {
@@ -67,7 +80,7 @@ const useDeleteAdminMutation = () => {
       client.invalidateQueries({ queryKey: ['user-admin'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
@@ -75,6 +88,7 @@ export {
   useCreateAdminMutation,
   useDeleteAdminMutation,
   useDeleteUserMutation,
+  useEditUserMutation,
   useGetAdminsQuery,
   useGetUsersQuery,
   useUpdateUserAdminPasswordMutation,

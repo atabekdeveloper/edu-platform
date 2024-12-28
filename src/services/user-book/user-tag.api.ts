@@ -3,13 +3,14 @@ import { TGetParamsChange } from 'src/services/index.types';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { handleError } from 'src/utils';
 import { fetchCreateUserBook, fetchDeleteUserBook, fetchGetUserBooks } from './user-tag.services';
 
 const useGetUserBooksQuery = (params: TGetParamsChange) =>
   useQuery({
     queryFn: () => fetchGetUserBooks(params),
     queryKey: ['user-book', ...Object.values(params)],
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 
 const useCreateUserBookMutation = () => {
@@ -20,7 +21,7 @@ const useCreateUserBookMutation = () => {
       client.invalidateQueries({ queryKey: ['user-book'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
@@ -32,7 +33,7 @@ const useDeleteUserBookMutation = () => {
       client.invalidateQueries({ queryKey: ['user-book'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 

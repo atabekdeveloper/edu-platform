@@ -72,7 +72,12 @@ const Header: React.FC = () => {
             Войти
           </Button>
         ) : (
-          <Avatar className="cursor-pointer bg-primary" size={40} icon={<CiUser />} />
+          <Avatar
+            className="cursor-pointer bg-primary"
+            size={40}
+            icon={<CiUser />}
+            onClick={() => navigate('/profile')}
+          />
         )}
       </div>
     </header>

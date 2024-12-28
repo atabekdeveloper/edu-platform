@@ -3,6 +3,7 @@ import { TGetParamsChange } from 'src/services/index.types';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { handleError } from 'src/utils';
 import {
   fetchCreateBook,
   fetchDeleteBook,
@@ -16,13 +17,13 @@ const useGetBooksQuery = (params: TGetParamsChange & TBookItemParams) =>
   useQuery({
     queryFn: () => fetchGetBooks(params),
     queryKey: ['book', ...Object.values(params)],
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 const useGetBookItemQuery = (params: { id: string }) =>
   useQuery({
     queryFn: () => fetchGetBookItem(params),
     queryKey: ['book', ...Object.values(params)],
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 
 const useCreateBookMutation = () => {
@@ -33,7 +34,7 @@ const useCreateBookMutation = () => {
       client.invalidateQueries({ queryKey: ['book'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
@@ -45,7 +46,7 @@ const useUpdateBookMutation = () => {
       client.invalidateQueries({ queryKey: ['book'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
@@ -57,7 +58,7 @@ const useDeleteBookMutation = () => {
       client.invalidateQueries({ queryKey: ['book'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 

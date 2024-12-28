@@ -3,13 +3,14 @@ import { TGetParamsChange } from 'src/services/index.types';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { handleError } from 'src/utils';
 import { fetchCreateTag, fetchDeleteTag, fetchGetTags, fetchUpdateTag } from './tag.services';
 
 const useGetTagsQuery = (params: TGetParamsChange) =>
   useQuery({
     queryFn: () => fetchGetTags(params),
     queryKey: ['tag', ...Object.values(params)],
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 
 const useCreateTagMutation = () => {
@@ -20,7 +21,7 @@ const useCreateTagMutation = () => {
       client.invalidateQueries({ queryKey: ['tag'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
@@ -32,7 +33,7 @@ const useUpdateTagMutation = () => {
       client.invalidateQueries({ queryKey: ['tag'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
@@ -44,7 +45,7 @@ const useDeleteTagMutation = () => {
       client.invalidateQueries({ queryKey: ['tag'] });
       message.success(res.meta.message);
     },
-    onError: (err: any) => message.error(err.response.data.meta.message),
+    onError: handleError,
   });
 };
 
