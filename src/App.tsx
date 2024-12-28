@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Layout } from 'src/components/admin/layout/Layout';
 
@@ -16,19 +16,15 @@ import { UserLayout } from './components/user/layout/Layout';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const { i18n } = useTranslation();
   const lang = useLangPersistStore((state) => state.lang);
 
-  const token = useAuthPersistStore((state) => state.accessToken);
   const roleName = useAuthPersistStore((state) => state.roleName);
 
   React.useEffect(() => {
-    if (token && pathname === '/login') {
-      if (roleName === 'admin') navigate('/admin/users');
-      else navigate('/');
-    }
-  }, [navigate, pathname, roleName, token]);
+    if (roleName === 'admin') navigate('/admin/users');
+    else navigate('/');
+  }, []);
   React.useEffect(() => {
     i18n.changeLanguage(lang);
   }, [lang]);
