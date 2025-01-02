@@ -33,8 +33,24 @@ const Book: React.FC = () => {
 
   React.useEffect(() => {
     if (bookModal && !isInitialized) {
-      WebViewer({ path: 'lib', initialDoc: bookPdf }, workBookRef.current as HTMLDivElement);
-      WebViewer({ path: 'lib', initialDoc: bookPdf }, studentBookRef.current as HTMLDivElement);
+      WebViewer(
+        {
+          path: 'lib',
+          initialDoc: bookPdf,
+          licenseKey:
+            'demo:1729834710515:7e11046b0300000000a3015cf7987e8282bf92a35ab6f7aa257912a304',
+        },
+        workBookRef.current as HTMLDivElement,
+      );
+      WebViewer(
+        {
+          path: 'lib',
+          initialDoc: bookPdf,
+          licenseKey:
+            'demo:1729834710515:7e11046b0300000000a3015cf7987e8282bf92a35ab6f7aa257912a304',
+        },
+        studentBookRef.current as HTMLDivElement,
+      );
       setIsInitialized(true); // Устанавливаем флаг после выполнения
     }
   }, [bookModal, isInitialized]);
