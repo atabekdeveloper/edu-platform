@@ -7,6 +7,7 @@ import { useDebounce } from 'src/hooks';
 import { useCreateUserBookMutation, useGetBooksQuery } from 'src/services/index.api';
 import { useAuthPersistStore, useFilterBookStore } from 'src/store';
 
+import { useTranslation } from 'react-i18next';
 import notBook from 'src/assets/images/not-book.png';
 
 interface IBook {
@@ -18,6 +19,8 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
   const [limit, setLimit] = React.useState(10);
   const { title, categoryId } = useFilterBookStore();
   const debounceTitle = useDebounce(title);
+
+  const { t } = useTranslation();
 
   const { mutate: createUserBook } = useCreateUserBookMutation();
 
@@ -66,7 +69,7 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
                 type="primary"
                 onClick={() => (token ? navigate(el._id) : navigate('/login'))}
               >
-                Подробно
+                {t('minutely')}
               </Button>
               <button
                 onClick={() => (token ? createUserBook({ bookId: el._id }) : navigate('/login'))}
@@ -89,7 +92,7 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
           className="p-2 rounded-md bg-[#ececec] w-full max-w-[200px]"
           onClick={() => setLimit((prev) => prev + 10)}
         >
-          Развернуть
+          {t('unfurl')}
         </button>
       </div>
     </article>

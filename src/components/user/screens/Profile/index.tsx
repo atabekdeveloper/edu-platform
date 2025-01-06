@@ -25,9 +25,9 @@ const Profile: React.FC = () => {
     navigate('/');
   };
   const roleItems = [
-    { value: 'student', title: 'Студент' },
-    { value: 'teacher', title: 'Учитель' },
-    { value: 'parent', title: 'Родитель' },
+    { value: 'student', title: t('student') },
+    { value: 'teacher', title: t('teacher') },
+    { value: 'parent', title: t('parent') },
   ];
   React.useEffect(() => {
     form.setFieldsValue({ fullName, phone: phone?.substring(4), role: roleName });
@@ -46,16 +46,16 @@ const Profile: React.FC = () => {
   return (
     <section className="container">
       <div className="flex items-center gap-3 pb-7">
-        <Link to="/">Главная</Link>
+        <Link to="/">{t('main')}</Link>
         <span className="border border-black rounded-sm">
           <GoArrowRight />
         </span>
-        <p>Профиль</p>
+        <p>{t('profile')}</p>
       </div>
       <Form
         className="max-w-[500px]"
         form={form}
-        name="Login"
+        name="Profile"
         layout="vertical"
         onFinish={onFinish}
         size="large"
@@ -67,7 +67,7 @@ const Profile: React.FC = () => {
           label={<h4 className="text-[#696F79] pb-1 text-base">{t('fullName')}</h4>}
           rules={[{ required: true, message: '' }]}
         >
-          <Input placeholder="Введите" />
+          <Input placeholder={t('group')} />
         </Form.Item>
         <Form.Item
           name="phone"
@@ -87,7 +87,7 @@ const Profile: React.FC = () => {
           {t('edit')}
         </Button>
         <Button className="mt-5" type="primary" block danger onClick={onSignOut}>
-          Выйти из аккаунта
+          {t('logout')}
         </Button>
       </Form>
     </section>

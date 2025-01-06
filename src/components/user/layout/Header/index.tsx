@@ -4,6 +4,7 @@ import { CiBookmark, CiUser } from 'react-icons/ci';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import logo from 'src/assets/images/logo.png';
 import { useAuthPersistStore, useFilterBookStore } from 'src/store';
 import { HeaderLang } from './HeaderLang';
@@ -12,6 +13,8 @@ const Header: React.FC = () => {
   const { title, setTitle } = useFilterBookStore();
   const token = useAuthPersistStore((state) => state.accessToken);
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
   return (
     <header className="container relative flex justify-between gap-5 py-7">
       <img className="max-w-[70px] md:max-w-[120px]" src={logo} alt="Logo" />
@@ -22,7 +25,7 @@ const Header: React.FC = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="py-3 px-3 pl-9 outline-none bg-[#f6f6f6] rounded-md placeholder:text-black w-full"
-          placeholder="Поиск"
+          placeholder={t('search')}
         />
       </div>
       <div className="flex items-center gap-3 lg:gap-5">
@@ -32,7 +35,7 @@ const Header: React.FC = () => {
           onClick={() => (token ? navigate('/mybook') : navigate('/login'))}
         >
           <CiBookmark size={24} />
-          <span className="text-sm">Избранное</span>
+          <span className="text-sm">{t('myBook')}</span>
         </button>
         <button
           className="px-3 py-2 rounded-md custom-icon lg:hidden"
@@ -48,7 +51,7 @@ const Header: React.FC = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="pl-7 outline-none bg-[#fff] rounded-md placeholder:text-black w-full"
-                placeholder="Поиск"
+                placeholder={t('search')}
               />
             </div>
           }
@@ -69,7 +72,7 @@ const Header: React.FC = () => {
             size="large"
             onClick={() => navigate('/login')}
           >
-            Войти
+            {t('login')}
           </Button>
         ) : (
           <Avatar

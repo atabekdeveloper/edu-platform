@@ -12,6 +12,7 @@ import { BookModal } from './BookModal';
 
 import bookPdf from 'src/assets/Парадокс Шимпанзе. Менеджмент мозга.pdf';
 
+import { useTranslation } from 'react-i18next';
 import { IoBookmarkOutline } from 'react-icons/io5';
 import notBook from 'src/assets/images/not-book.png';
 
@@ -20,6 +21,8 @@ const Book: React.FC = () => {
   const [bookModal, setBookModal] = React.useState(false);
   const [isInitialized, setIsInitialized] = React.useState(false);
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const token = useAuthPersistStore((state) => state.accessToken);
 
@@ -64,7 +67,7 @@ const Book: React.FC = () => {
         setBookModal={setBookModal}
       />
       <div className="flex items-center gap-3 pb-7">
-        <Link to="/">Главная</Link>
+        <Link to="/">{t('main')}</Link>
         <span className="border border-black rounded-sm">
           <GoArrowRight />
         </span>
@@ -97,12 +100,12 @@ const Book: React.FC = () => {
               </ul>
               <ul className="flex flex-col gap-2">
                 <li className="flex gap-1">
-                  <span>Автор</span>
+                  <span>{t('author')}</span>
                   <span className="block w-full border-b border-dashed"></span>
                   <span className="text-nowrap">{book?.data.author}</span>
                 </li>
                 <li className="flex gap-1">
-                  <span>Категория</span>
+                  <span>{t('category')}</span>
                   <span className="block w-full border-b border-dashed"></span>
                   <span className="text-nowrap">
                     {/* @ts-ignore */}
@@ -122,7 +125,7 @@ const Book: React.FC = () => {
                   size="large"
                   onClick={() => setBookModal(true)}
                 >
-                  Начать задание
+                  {t('startTask')}
                 </Button>
                 <button
                   onClick={() =>

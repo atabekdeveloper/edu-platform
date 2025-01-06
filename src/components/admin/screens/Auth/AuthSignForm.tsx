@@ -30,33 +30,33 @@ const AuthSignForm: React.FC<IAuthSignForm> = ({ form, onFinish, isLoading, setA
         <button type="button" onClick={() => setActiveIndex((prev) => prev - 1)}>
           <LuArrowLeft size={24} />
         </button>
-        <h2 className="text-2xl lg:text-3xl">Введите информацию о себе</h2>
+        <h2 className="text-2xl lg:text-3xl">{t('signTitle')}</h2>
       </div>
-      <p className="mb-4 text-lg text-[#4e4e4e]">Все поля обязательны для заполнения</p>
+      <p className="mb-4 text-lg text-[#4e4e4e]">{t('signDesc')}</p>
       <Form.Item
         name="fullName"
         label={<h4 className="text-[#696F79] pb-1 text-base">{t('fullName')}</h4>}
         rules={[{ required: true, message: '' }]}
       >
-        <Input placeholder="Введите" />
+        <Input placeholder={t('group')} />
       </Form.Item>
       <Form.Item
         name="phone"
-        label={<h4 className="text-[#696F79] pb-1 text-base">Номер телефона</h4>}
+        label={<h4 className="text-[#696F79] pb-1 text-base">{t('phone')}</h4>}
         rules={[{ required: true, message: '' }]}
       >
-        <UiPhoneIMaskInput placeholder="Введите" />
+        <UiPhoneIMaskInput placeholder={t('group')} />
       </Form.Item>
       <Form.Item
         name="password"
-        label={<h4 className="text-[#696F79] pb-1 text-base">Придумайте пароль</h4>}
+        label={<h4 className="text-[#696F79] pb-1 text-base">{t('createPassword')}</h4>}
         rules={[{ required: true, message: '' }]}
       >
-        <Input.Password placeholder="Введите" />
+        <Input.Password placeholder={t('group')} />
       </Form.Item>
       <Form.Item
         name="passwordConfirm"
-        label={<h4 className="text-[#696F79] pb-1 text-base">Повторите пароль</h4>}
+        label={<h4 className="text-[#696F79] pb-1 text-base">{t('repeatPassword')}</h4>}
         rules={[
           { required: true, message: '' },
           ({ getFieldValue }) => ({
@@ -69,10 +69,10 @@ const AuthSignForm: React.FC<IAuthSignForm> = ({ form, onFinish, isLoading, setA
           }),
         ]}
       >
-        <Input.Password placeholder="Введите" />
+        <Input.Password placeholder={t('group')} />
       </Form.Item>
       <Button type="primary" block size="large" htmlType="submit" loading={isLoading}>
-        Зарегистрироваться
+        {t('sign')}
       </Button>
     </Form>
   );

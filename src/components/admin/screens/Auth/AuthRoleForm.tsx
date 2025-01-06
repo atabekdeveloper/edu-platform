@@ -1,13 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiArrowRight, FiUsers } from 'react-icons/fi';
 import { PiSuitcase } from 'react-icons/pi';
 import { TbUser } from 'react-icons/tb';
-
-const roleItems = [
-  { value: 'student', title: 'Студент', desc: 'Описание', icon: <TbUser size={20} /> },
-  { value: 'teacher', title: 'Учитель', desc: 'Описание', icon: <PiSuitcase size={20} /> },
-  { value: 'parent', title: 'Родитель', desc: 'Описание', icon: <FiUsers size={20} /> },
-];
 interface IAuthRoleForm {
   role: string;
   setRole: React.Dispatch<React.SetStateAction<string>>;
@@ -15,13 +10,32 @@ interface IAuthRoleForm {
 }
 
 const AuthRoleForm: React.FC<IAuthRoleForm> = ({ setActiveIndex, role, setRole }) => {
+  const { t } = useTranslation();
+  const roleItems = [
+    {
+      value: 'student',
+      title: t('student'),
+      desc: 'Lorem ipsum dolor sit amet.',
+      icon: <TbUser size={20} />,
+    },
+    {
+      value: 'teacher',
+      title: t('teacher'),
+      desc: 'Lorem ipsum dolor sit amet.',
+      icon: <PiSuitcase size={20} />,
+    },
+    {
+      value: 'parent',
+      title: t('parent'),
+      desc: 'Lorem ipsum dolor sit amet.',
+      icon: <FiUsers size={20} />,
+    },
+  ];
   return (
     <div className="px-10">
       <div className="flex flex-col gap-2 mb-5">
-        <h2 className="text-2xl lg:text-3xl">Добро пожаловать!</h2>
-        <p className="text-[#4e4e4e]">
-          Перед началом нашего совместного путешествия, пожалуйста, расскажи о себе!
-        </p>
+        <h2 className="text-2xl lg:text-3xl">{t('wellcome')}</h2>
+        <p className="text-[#4e4e4e]">{t('wellcomeDesc')}</p>
       </div>
       <ul className="flex flex-col gap-5 mb-3">
         {roleItems.map((el) => (
@@ -67,12 +81,12 @@ const AuthRoleForm: React.FC<IAuthRoleForm> = ({ setActiveIndex, role, setRole }
         ))}
       </ul>
       <div className="pt-2 text-xl text-center">
-        <span className="text-[#8692A6] pr-2">Уже есть аккаунт?</span>
+        <span className="text-[#8692A6] pr-2">{t('accaunt')}</span>
         <span
           className="cursor-pointer text-primary"
           onClick={() => setActiveIndex((prev) => prev - 1)}
         >
-          Войти
+          {t('login')}
         </span>
       </div>
     </div>

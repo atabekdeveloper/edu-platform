@@ -1,5 +1,6 @@
 import { Button, Form, FormInstance, Input } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiArrowRight } from 'react-icons/fi';
 
 import { UiPhoneIMaskInput } from 'src/components/admin/ui';
@@ -13,6 +14,7 @@ interface IAuthLoginForm {
 }
 
 const AuthLoginForm: React.FC<IAuthLoginForm> = ({ form, onFinish, isLoading, setActiveIndex }) => {
+  const { t } = useTranslation();
   return (
     <Form
       className="px-10"
@@ -28,25 +30,25 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({ form, onFinish, isLoading, se
         <button type="button" onClick={() => setActiveIndex((prev) => prev + 1)}>
           <FiArrowRight size={24} />
         </button>
-        <h2 className="text-2xl lg:text-3xl">Снова здравствуйте!</h2>
+        <h2 className="text-2xl lg:text-3xl">{t('helloAgaing')}</h2>
       </div>
-      <p className="mb-4 text-lg text-[#4e4e4e]">Для входа введите данные</p>
+      <p className="mb-4 text-lg text-[#4e4e4e]">{t('helloAgaingDesc')}</p>
       <Form.Item
         name="phone"
-        label={<h4 className="text-[#696F79] pb-1 text-base">Номер телефона</h4>}
+        label={<h4 className="text-[#696F79] pb-1 text-base">{t('phone')}</h4>}
         rules={[{ required: true, message: '' }]}
       >
-        <UiPhoneIMaskInput placeholder="Введите" />
+        <UiPhoneIMaskInput placeholder={t('group')} />
       </Form.Item>
       <Form.Item
         name="password"
-        label={<h4 className="text-[#696F79] pb-1 text-base">Пароль</h4>}
+        label={<h4 className="text-[#696F79] pb-1 text-base">{t('password')}</h4>}
         rules={[{ required: true, message: '' }]}
       >
-        <Input.Password placeholder="Введите" />
+        <Input.Password placeholder={t('group')} />
       </Form.Item>
       <Button type="primary" block size="large" htmlType="submit" loading={isLoading}>
-        Войти
+        {t('login')}
       </Button>
     </Form>
   );

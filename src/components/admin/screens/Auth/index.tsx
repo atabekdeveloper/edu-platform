@@ -6,6 +6,7 @@ import { useAuthLoginMutation, useAuthSignMutation } from 'src/services/index.ap
 import { useAuthPersistStore, useLangPersistStore } from 'src/store';
 import { formatPhoneStringJoin } from 'src/utils';
 
+import { useTranslation } from 'react-i18next';
 import banner from 'src/assets/images/banner/banner.png';
 import edge from 'src/assets/images/icons/edge.svg';
 import stuck from 'src/assets/images/icons/stuck.svg';
@@ -23,6 +24,8 @@ const AuthLogin: React.FC = () => {
   const signIn = useAuthPersistStore((state) => state.signIn);
   const navigate = useNavigate();
   const { lang, setLang } = useLangPersistStore();
+
+  const { t } = useTranslation();
 
   const [activeIndex, setActiveIndex] = React.useState(1);
   const [age, setAge] = React.useState('');
@@ -113,7 +116,7 @@ const AuthLogin: React.FC = () => {
               className="cursor-pointer text-primary hover:underline"
               onClick={() => navigate('/')}
             >
-              Главная
+              {t('main')}
             </a>
             <div className="flex justify-center gap-3 lg:justify-end text-primary">
               <button

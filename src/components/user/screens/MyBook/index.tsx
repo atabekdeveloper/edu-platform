@@ -6,11 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDeleteUserBookMutation, useGetUserBooksQuery } from 'src/services/index.api';
 import { useAuthPersistStore } from 'src/store';
 
+import { useTranslation } from 'react-i18next';
 import { GoArrowRight } from 'react-icons/go';
 import notBook from 'src/assets/images/not-book.png';
 
 const MyBook: React.FC = () => {
   const { mutate: deleteUserBook } = useDeleteUserBookMutation();
+
+  const { t } = useTranslation();
 
   const token = useAuthPersistStore((state) => state.accessToken);
 
@@ -23,14 +26,14 @@ const MyBook: React.FC = () => {
   return (
     <section className="container">
       <div className="flex items-center gap-3 pb-7">
-        <Link to="/">Главная</Link>
+        <Link to="/">{t('main')}</Link>
         <span className="border border-black rounded-sm">
           <GoArrowRight />
         </span>
-        <p>Избранное</p>
+        <p>{t('myBook')}</p>
       </div>
       <article className="pb-5">
-        <h2 className="title">Избранное</h2>
+        <h2 className="title">{t('myBook')}</h2>
         <ul className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-9">
           {books?.data.map((el) => (
             <li className="px-4 py-5 rounded-md shadow" key={el._id}>
@@ -56,7 +59,7 @@ const MyBook: React.FC = () => {
                   type="primary"
                   onClick={() => (token ? navigate(`/${el.bookId._id}`) : navigate('/login'))}
                 >
-                  Подробно
+                  {t('minutely')}
                 </Button>
                 <button onClick={() => deleteUserBook(el.bookId._id)}>
                   <IoBookmark className="text-primary" size={24} />
