@@ -28,6 +28,10 @@ import './i18next';
 import 'antd/dist/reset.css';
 import 'src/assets/styles/_antd.css';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import 'swiper/css';
+
 import 'src/assets/styles/index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

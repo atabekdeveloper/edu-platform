@@ -66,5 +66,6 @@ export const ru = {
     student: 'Студент',
     teacher: 'Учитель',
     parent: 'Родитель',
+    accaunt: '',
   },
 };
