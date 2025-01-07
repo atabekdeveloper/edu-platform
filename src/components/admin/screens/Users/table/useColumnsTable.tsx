@@ -58,6 +58,8 @@ export const useColumnsTable = () => {
       title: t('action'),
       dataIndex: 'action',
       key: 'action',
+      width: 20,
+      align: 'center',
       render: (_, r) => (
         <GlobalPopConfirm
           title={t('deleteUser')}

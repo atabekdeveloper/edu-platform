@@ -40,6 +40,8 @@ export const useColumnsTable = () => {
       title: t('action'),
       dataIndex: 'action',
       key: 'action',
+      width: 100,
+      align: 'center',
       render: (_, r) => (
         <div className="flex gap-2">
           <Button icon={<MdOutlineEdit />} type="default" onClick={() => setParamsForm(r)} />
