@@ -19,7 +19,7 @@ export const fetchCreateCategory = async (
 export const fetchUpdateCategory = async (
   values: TCategoryChange,
 ): Promise<SRO<TCategoryChange>> => {
-  const res = await api.put(`/category/${values._id}`, removeProperties(values, ['_id']));
+  const res = await api.put(`/category/${values._id}`, removeProperties(values, [], ['_id']));
   return res.data;
 };
 export const fetchDeleteCategory = async (id: string): Promise<TMessage> => {

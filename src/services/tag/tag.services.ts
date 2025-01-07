@@ -15,7 +15,7 @@ export const fetchCreateTag = async (values: TTagChange): Promise<SRO<TTagChange
   return res.data;
 };
 export const fetchUpdateTag = async (values: TTagChange): Promise<SRO<TTagChange>> => {
-  const res = await api.put(`/tag/${values._id}`, removeProperties(values, ['_id']));
+  const res = await api.put(`/tag/${values._id}`, removeProperties(values, [], ['_id']));
   return res.data;
 };
 export const fetchDeleteTag = async (id: string): Promise<TMessage> => {
