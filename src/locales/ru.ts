@@ -22,6 +22,8 @@ export const ru = {
     studentBook: 'Основная книга',
     title: 'Название',
     workBook: 'Рабочая книга',
+    active: 'Активный',
+    notActive: 'Не активный',
 
     // Форма
     add: 'Добавить',

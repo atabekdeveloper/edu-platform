@@ -1,6 +1,7 @@
 import { api } from 'src/api';
 
 import { SR, SRO, TGetParamsChange, TMessage } from 'src/services/index.types';
+import { removeProperties } from 'src/utils';
 import { TUserChange, TUserEditChange, TUserItem } from './user.types';
 
 export const fetchGetUsers = async (params: TGetParamsChange): Promise<SR<TUserItem>> => {
@@ -21,6 +22,13 @@ export const fetchCreateAdmin = async (values: TUserChange): Promise<SRO<TUserIt
 };
 export const fetchEditUser = async (values: TUserEditChange): Promise<SRO<TUserItem>> => {
   const res = await api.put('/user', values);
+  return res.data;
+};
+export const fetchUpdateActive = async (values: {
+  id: string;
+  isActive: boolean;
+}): Promise<SRO<TUserItem>> => {
+  const res = await api.patch(`/user/active/${values.id}`, removeProperties(values, [], ['id']));
   return res.data;
 };
 export const fetchUpdatePasswordUserAdmin = async (

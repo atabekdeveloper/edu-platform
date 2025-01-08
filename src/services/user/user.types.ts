@@ -11,6 +11,7 @@ export type TUserItem = {
   age: string;
   step: number;
   isVerify: boolean;
+  isActive: boolean;
   role: TRoleItemTypes;
   __v: number;
 };

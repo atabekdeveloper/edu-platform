@@ -22,6 +22,8 @@ export const uz = {
     studentBook: 'Asosiy kitob',
     title: 'Nomi',
     workBook: 'Ish daftari',
+    active: 'Faol',
+    notActive: 'Faol emas',
 
     // Forma
     add: 'Qo‘shish',

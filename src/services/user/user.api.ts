@@ -10,6 +10,7 @@ import {
   fetchEditUser,
   fetchGetAdmins,
   fetchGetUsers,
+  fetchUpdateActive,
   fetchUpdatePasswordUserAdmin,
 } from './user.services';
 
@@ -44,6 +45,17 @@ const useEditUserMutation = () => {
     mutationFn: fetchEditUser,
     onSuccess: (res) => {
       client.invalidateQueries({ queryKey: [''] });
+      message.success(res.meta.message);
+    },
+    onError: handleError,
+  });
+};
+const useUpdateActiveMutation = () => {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: fetchUpdateActive,
+    onSuccess: (res) => {
+      client.invalidateQueries({ queryKey: ['user'] });
       message.success(res.meta.message);
     },
     onError: handleError,
@@ -91,5 +103,6 @@ export {
   useEditUserMutation,
   useGetAdminsQuery,
   useGetUsersQuery,
+  useUpdateActiveMutation,
   useUpdateUserAdminPasswordMutation,
 };

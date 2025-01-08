@@ -22,6 +22,8 @@ export const en = {
     studentBook: 'Student Book',
     title: 'Title',
     workBook: 'Workbook',
+    active: 'Active',
+    notActive: 'Not active',
 
     // Form
     add: 'Add',

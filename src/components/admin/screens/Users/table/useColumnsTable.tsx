@@ -1,14 +1,15 @@
-import { Button } from 'antd';
+import { Button, Select } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useTranslation } from 'react-i18next';
 import { MdDeleteOutline } from 'react-icons/md';
 import { GlobalPopConfirm } from 'src/components/admin/shareds';
-import { useDeleteUserMutation } from 'src/services/index.api';
+import { useDeleteUserMutation, useUpdateActiveMutation } from 'src/services/index.api';
 
 import { TUserItem } from 'src/services/user/user.types';
 
 export const useColumnsTable = () => {
   const { t } = useTranslation();
+  const { mutate: userActiveChange } = useUpdateActiveMutation();
   const { mutate: deleteUser, isLoading } = useDeleteUserMutation();
   const columns: ColumnsType<TUserItem> = [
     {
@@ -41,6 +42,22 @@ export const useColumnsTable = () => {
       dataIndex: 'role',
       key: 'role',
       render: (value) => value || '-',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'isActive',
+      key: 'isActive',
+      render: (_, r) => (
+        <Select
+          className="w-full"
+          value={r.isActive}
+          options={[
+            { value: true, label: t('active') },
+            { value: false, label: t('notActive') },
+          ]}
+          onChange={(value) => userActiveChange({ id: r._id, isActive: value })}
+        />
+      ),
     },
     {
       title: t('createdAt'),
