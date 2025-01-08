@@ -71,7 +71,7 @@ export const en = {
     helloAgainDesc: 'Enter your credentials to log in',
     main: 'Home',
     minutely: 'Detailed',
-    myBook: 'Favorites',
+    myBook: 'My books',
     parent: 'Parent',
     profile: 'Profile',
     ring: 'Call',

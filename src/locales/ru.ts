@@ -71,7 +71,7 @@ export const ru = {
     helloAgainDesc: 'Для входа введите данные',
     main: 'Главная',
     minutely: 'Подробно',
-    myBook: 'Избранное',
+    myBook: 'Мои книги',
     parent: 'Родитель',
     profile: 'Профиль',
     ring: 'Звонок',

@@ -132,7 +132,10 @@ const Book: React.FC = () => {
                   className="w-[240px]"
                   type="primary"
                   size="large"
-                  onClick={() => setBookModal(true)}
+                  onClick={() => {
+                    setBookModal(true);
+                    createUserBook({ bookId: `${book?.data._id}` });
+                  }}
                 >
                   {t('startTask')}
                 </Button>

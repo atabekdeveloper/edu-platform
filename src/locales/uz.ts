@@ -71,7 +71,7 @@ export const uz = {
     helloAgainDesc: 'Kirish uchun ma’lumotlarni kiriting',
     main: 'Asosiy',
     minutely: 'Batafsil',
-    myBook: 'Sevimlilar',
+    myBook: 'Mening kitoblarim',
     parent: 'Ota-ona',
     profile: 'Profil',
     ring: 'Qo‘ng‘iroq',
