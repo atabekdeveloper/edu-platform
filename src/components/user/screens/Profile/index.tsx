@@ -3,11 +3,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GoArrowRight } from 'react-icons/go';
 import { Link, useNavigate } from 'react-router-dom';
-import { UiPhoneIMaskInput } from 'src/components/admin/ui';
 import { useEditUserMutation } from 'src/services/index.api';
 import { TUserEditChange } from 'src/services/user/user.types';
 import { useAuthPersistStore } from 'src/store';
-import { formatPhoneStringJoin } from 'src/utils';
+import { formatPhoneStringJoin, handleNumericInputKeyDown } from 'src/utils';
 
 const Profile: React.FC = () => {
   const [form] = Form.useForm();
@@ -74,7 +73,12 @@ const Profile: React.FC = () => {
           label={<h4 className="text-[#696F79] pb-1 text-base">{t('phone')}</h4>}
           rules={[{ required: true, message: '' }]}
         >
-          <UiPhoneIMaskInput />
+          <Input
+            prefix="+998"
+            placeholder="---------"
+            maxLength={9}
+            onKeyDown={handleNumericInputKeyDown}
+          />
         </Form.Item>
         <Form.Item
           name="role"

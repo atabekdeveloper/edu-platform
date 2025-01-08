@@ -4,7 +4,7 @@ import { TGetParamsChange } from 'src/services/index.types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { handleError } from 'src/utils';
-import { fetchCreateUserBook, fetchDeleteUserBook, fetchGetUserBooks } from './user-tag.services';
+import { fetchCreateUserBook, fetchDeleteUserBook, fetchGetUserBooks } from './user-book.services';
 
 const useGetUserBooksQuery = (params: TGetParamsChange) =>
   useQuery({

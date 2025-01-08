@@ -2,10 +2,9 @@ import { Form, Input } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalModal } from 'src/components/admin/shareds';
-import { UiPhoneIMaskInput } from 'src/components/admin/ui';
 import { useCreateAdminMutation } from 'src/services/index.api';
 import { TUserChange } from 'src/services/user/user.types';
-import { formatPhoneStringJoin } from 'src/utils';
+import { formatPhoneStringJoin, handleNumericInputKeyDown } from 'src/utils';
 
 const AdminsForm: React.FC = () => {
   const [form] = Form.useForm();
@@ -24,7 +23,12 @@ const AdminsForm: React.FC = () => {
     <GlobalModal form={form} isLoading={createLoading} isError={createError}>
       <Form name="Admins Form" form={form} onFinish={onFinish} autoComplete="off" layout="vertical">
         <Form.Item name="phone" label={t('phone')} rules={[{ required: true, message: '' }]}>
-          <UiPhoneIMaskInput />
+          <Input
+            prefix="+998"
+            placeholder="---------"
+            maxLength={9}
+            onKeyDown={handleNumericInputKeyDown}
+          />
         </Form.Item>
         <Form.Item
           className="w-full"

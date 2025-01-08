@@ -46,12 +46,15 @@ const AuthLogin: React.FC = () => {
   } = useAuthSignMutation();
 
   const onFinishSign = (values: TAuthRegister) => {
-    const formattedPhone = formatPhoneStringJoin(values.phone);
-    sign({ ...values, phone: formattedPhone, age, role: role as TRoleItemTypes });
+    sign({
+      ...values,
+      phone: formatPhoneStringJoin(values.phone),
+      age,
+      role: role as TRoleItemTypes,
+    });
   };
   const onFinishLogin = (values: TAuthLogin) => {
-    const formattedPhone = formatPhoneStringJoin(values.phone);
-    login({ ...values, phone: formattedPhone });
+    login({ ...values, phone: formatPhoneStringJoin(values.phone) });
   };
 
   React.useEffect(() => {

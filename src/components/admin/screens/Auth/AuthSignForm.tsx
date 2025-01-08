@@ -3,8 +3,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuArrowLeft } from 'react-icons/lu';
 
-import { UiPhoneIMaskInput } from 'src/components/admin/ui';
 import { TAuthRegister } from 'src/services/auth/auth.types';
+import { handleNumericInputKeyDown } from 'src/utils';
 
 interface IAuthSignForm {
   form: FormInstance<any>;
@@ -45,7 +45,12 @@ const AuthSignForm: React.FC<IAuthSignForm> = ({ form, onFinish, isLoading, setA
         label={<h4 className="text-[#696F79] pb-1 text-base">{t('phone')}</h4>}
         rules={[{ required: true, message: '' }]}
       >
-        <UiPhoneIMaskInput placeholder={t('group')} />
+        <Input
+          prefix="+998"
+          placeholder="---------"
+          maxLength={9}
+          onKeyDown={handleNumericInputKeyDown}
+        />
       </Form.Item>
       <Form.Item
         name="password"

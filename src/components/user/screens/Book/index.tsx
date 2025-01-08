@@ -5,7 +5,11 @@ import React from 'react';
 import { GoArrowRight } from 'react-icons/go';
 import { Img } from 'react-image';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useCreateUserBookMutation, useGetBookItemQuery } from 'src/services/index.api';
+import {
+  useCreateOrderMutation,
+  useCreateUserBookMutation,
+  useGetBookItemQuery,
+} from 'src/services/index.api';
 import { useAuthPersistStore, useLangPersistStore } from 'src/store';
 import { capitalizeFirstLetter, convertToEmbedUrl, isYouTubeVideoUrl } from 'src/utils';
 import { BookModal } from './BookModal';
@@ -13,6 +17,7 @@ import { BookModal } from './BookModal';
 import bookPdf from 'src/assets/Парадокс Шимпанзе. Менеджмент мозга.pdf';
 
 import { useTranslation } from 'react-i18next';
+import { FiShoppingCart } from 'react-icons/fi';
 import { IoBookmarkOutline } from 'react-icons/io5';
 import notBook from 'src/assets/images/not-book.png';
 
@@ -27,6 +32,7 @@ const Book: React.FC = () => {
   const token = useAuthPersistStore((state) => state.accessToken);
 
   const { mutate: createUserBook } = useCreateUserBookMutation();
+  const { mutate: createOrder } = useCreateOrderMutation();
   const { data: book, isLoading } = useGetBookItemQuery({ id: `${id}` });
 
   const workBookRef = React.useRef<HTMLDivElement>(null);
@@ -127,6 +133,13 @@ const Book: React.FC = () => {
                 >
                   {t('startTask')}
                 </Button>
+                <button
+                  onClick={() =>
+                    token ? createOrder({ bookId: `${book?.data._id}` }) : navigate('/login')
+                  }
+                >
+                  <FiShoppingCart size={24} />
+                </button>
                 <button
                   onClick={() =>
                     token ? createUserBook({ bookId: `${book?.data._id}` }) : navigate('/login')

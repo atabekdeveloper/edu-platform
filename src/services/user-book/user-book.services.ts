@@ -1,7 +1,7 @@
 import { api } from 'src/api';
 
 import { SR, SRO, TGetParamsChange, TMessage } from 'src/services/index.types';
-import { TUserBookChange, TUserBookItem } from './user-tag.types';
+import { TUserBookChange, TUserBookItem } from './user-book.types';
 
 export const fetchGetUserBooks = async (params: TGetParamsChange): Promise<SR<TUserBookItem>> => {
   const res = await api.get('/user-book', {
