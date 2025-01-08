@@ -60,6 +60,8 @@ export const uz = {
     deleteTagDesc: 'Bu tegni o‘chirib tashlamoqchimisiz?',
     deleteUser: 'Foydalanuvchini o‘chirish',
     deleteUserDesc: 'Bu foydalanuvchini o‘chirib tashlamoqchimisiz?',
+    createOrderTitle: 'Kitobga buyurtma berish',
+    createOrderDesc: 'Ushbu kitobga buyurtma bermoqchimisiz?',
     notFound: 'Uuups.. Qidirgan sahifangiz topilmadi :(',
 
     // Foydalanuvchi

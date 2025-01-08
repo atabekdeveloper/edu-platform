@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { FiShoppingCart } from 'react-icons/fi';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import notBook from 'src/assets/images/not-book.png';
+import { GlobalPopConfirm } from 'src/components/admin/shareds';
 
 const Book: React.FC = () => {
   const { id } = useParams();
@@ -139,13 +140,19 @@ const Book: React.FC = () => {
                 >
                   {t('startTask')}
                 </Button>
-                <button
-                  onClick={() =>
+                <GlobalPopConfirm
+                  title={t('createOrderTitle')}
+                  description={t('createOrderDesc')}
+                  onConfirm={() =>
                     token ? createOrder({ bookId: `${book?.data._id}` }) : navigate('/login')
                   }
+                  loading={isLoading}
                 >
-                  <FiShoppingCart size={24} />
-                </button>
+                  <button>
+                    <FiShoppingCart size={24} />
+                  </button>
+                </GlobalPopConfirm>
+
                 <button
                   onClick={() =>
                     token

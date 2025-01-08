@@ -60,6 +60,8 @@ export const en = {
     deleteTagDesc: 'Are you sure you want to delete this tag?',
     deleteUser: 'Delete User',
     deleteUserDesc: 'Are you sure you want to delete this user?',
+    createOrderTitle: 'Order Book',
+    createOrderDesc: 'Are you sure you want to order this book?',
     notFound: 'Oops.. The page you were looking for was not found :(',
 
     // User
