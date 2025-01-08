@@ -81,5 +81,10 @@ export const uz = {
     signDesc: 'Barcha maydonlarni to‘ldirish shart',
     startTask: 'Vazifani boshlash',
     profile: 'Profil',
+    // Banner
+    bannerTitle: 'Barcha kitoblar bir joyda!',
+    bannerDesc1: 'Sevimli asarlaringizni qulay formatda o‘qing.',
+    bannerDesc2: 'Elektron kitoblar (PDF) yuklab olish va onlayn ko‘rish uchun mavjud.',
+    bannerDesc3: 'Bilim va qiziqarli hikoyalar olamiga sho‘ng‘ishni hoziroq boshlang!',
   },
 };

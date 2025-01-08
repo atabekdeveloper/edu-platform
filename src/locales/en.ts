@@ -80,5 +80,10 @@ export const en = {
     signDesc: 'All fields are required',
     startTask: 'Start task',
     profile: 'Profile',
+    // Banner
+    bannerTitle: 'All books in one place!',
+    bannerDesc1: 'Read your favorite works in a convenient format.',
+    bannerDesc2: 'E-books (PDF) are available for download and online viewing.',
+    bannerDesc3: 'Start diving into the world of knowledge and fascinating stories right now!',
   },
 };
