@@ -10,7 +10,11 @@ const GlobalTable: React.FC<TableProps<any>> = (_props) => {
       <Table
         {..._props}
         rowKey={() => uniqid()}
-        pagination={{ ..._props.pagination, position: ['bottomRight'], size: 'default' }}
+        pagination={
+          _props.pagination
+            ? { ..._props.pagination, position: ['bottomRight'], size: 'default' }
+            : false
+        }
         size="middle"
         bordered
         scroll={{ x: isMobile ? 1000 : 'auto' }}

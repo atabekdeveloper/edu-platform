@@ -1,16 +1,21 @@
 import { Button, Select } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useTranslation } from 'react-i18next';
+import { GrBook } from 'react-icons/gr';
 import { MdDeleteOutline } from 'react-icons/md';
 import { GlobalPopConfirm } from 'src/components/admin/shareds';
 import { useDeleteUserMutation, useUpdateActiveMutation } from 'src/services/index.api';
 
 import { TUserItem } from 'src/services/user/user.types';
+import { useFormStorageStore } from 'src/store';
 
 export const useColumnsTable = () => {
   const { t } = useTranslation();
   const { mutate: userActiveChange } = useUpdateActiveMutation();
   const { mutate: deleteUser, isLoading } = useDeleteUserMutation();
+
+  const setParamsForm = useFormStorageStore((state) => state.setParamsForm);
+
   const columns: ColumnsType<TUserItem> = [
     {
       title: 'ID',
@@ -75,17 +80,20 @@ export const useColumnsTable = () => {
       title: t('action'),
       dataIndex: 'action',
       key: 'action',
-      width: 20,
+      width: 100,
       align: 'center',
       render: (_, r) => (
-        <GlobalPopConfirm
-          title={t('deleteUser')}
-          description={t('deleteUserDesc')}
-          onConfirm={() => deleteUser(r._id)}
-          loading={isLoading}
-        >
-          <Button type="primary" danger icon={<MdDeleteOutline />} />
-        </GlobalPopConfirm>
+        <div className="flex gap-3">
+          <Button type="primary" icon={<GrBook />} onClick={() => setParamsForm({ ...r })} />
+          <GlobalPopConfirm
+            title={t('deleteUser')}
+            description={t('deleteUserDesc')}
+            onConfirm={() => deleteUser(r._id)}
+            loading={isLoading}
+          >
+            <Button type="primary" danger icon={<MdDeleteOutline />} />
+          </GlobalPopConfirm>
+        </div>
       ),
     },
   ];

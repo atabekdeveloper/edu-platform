@@ -11,6 +11,7 @@ const useGetUserBooksQuery = (params: TGetParamsChange & { _id: string }) =>
     queryFn: () => fetchGetUserBooks(params),
     queryKey: ['user-book', ...Object.values(params)],
     onError: handleError,
+    enabled: !!params._id,
   });
 
 const useCreateUserBookMutation = () => {
