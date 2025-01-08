@@ -85,7 +85,7 @@ const BooksForm: React.FC = () => {
             className="w-full"
             name="isbn"
             label="ISBN"
-            rules={[{ required: true, message: '' }]}
+            rules={[{ required: false, message: '' }]}
           >
             <InputNumber onKeyDown={handleNumericInputKeyDown} />
           </Form.Item>
@@ -119,18 +119,13 @@ const BooksForm: React.FC = () => {
             }))}
           />
         </Form.Item>
-        <FileInput
-          label={t('photo')}
-          name="image"
-          accept=".jpg, .jpeg, .png"
-          required={!paramsForm}
-        />
+        <FileInput label={t('photo')} name="image" accept=".jpg, .jpeg, .png" required={false} />
         <FileInput
           label={t('studentBook')}
           name="book"
           accept=".pdf"
           hidden={!!paramsForm}
-          required
+          required={false}
         />
         <FileInput
           label={t('workBook')}
