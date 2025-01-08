@@ -23,7 +23,7 @@ const UserBookModal: React.FC = () => {
     },
   ];
   return (
-    <Modal open={isModal} onCancel={toggleModal} footer={false}>
+    <Modal open={isModal} title={paramsForm?.fullName} onCancel={toggleModal} footer={false}>
       <GlobalTable
         dataSource={userBooks?.data}
         columns={columns}
