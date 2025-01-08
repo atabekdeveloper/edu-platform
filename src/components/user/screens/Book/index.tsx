@@ -8,6 +8,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   useCreateOrderMutation,
   useCreateUserBookMutation,
+  useDeleteUserBookMutation,
   useGetBookItemQuery,
 } from 'src/services/index.api';
 import { useAuthPersistStore, useLangPersistStore } from 'src/store';
@@ -18,7 +19,7 @@ import bookPdf from 'src/assets/Парадокс Шимпанзе. Менедж�
 
 import { useTranslation } from 'react-i18next';
 import { FiShoppingCart } from 'react-icons/fi';
-import { IoBookmarkOutline } from 'react-icons/io5';
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import notBook from 'src/assets/images/not-book.png';
 
 const Book: React.FC = () => {
@@ -32,6 +33,8 @@ const Book: React.FC = () => {
   const token = useAuthPersistStore((state) => state.accessToken);
 
   const { mutate: createUserBook } = useCreateUserBookMutation();
+  const { mutate: deleteUserBook } = useDeleteUserBookMutation();
+
   const { mutate: createOrder } = useCreateOrderMutation();
   const { data: book, isLoading } = useGetBookItemQuery({ id: `${id}` });
 
@@ -142,10 +145,18 @@ const Book: React.FC = () => {
                 </button>
                 <button
                   onClick={() =>
-                    token ? createUserBook({ bookId: `${book?.data._id}` }) : navigate('/login')
+                    token
+                      ? book?.data.isFavourite
+                        ? deleteUserBook(book.data._id)
+                        : createUserBook({ bookId: `${book?.data._id}` })
+                      : navigate('/login')
                   }
                 >
-                  <IoBookmarkOutline size={24} />
+                  {book?.data.isFavourite ? (
+                    <IoBookmark className="text-primary" size={24} />
+                  ) : (
+                    <IoBookmarkOutline size={24} />
+                  )}
                 </button>
               </div>
             </div>

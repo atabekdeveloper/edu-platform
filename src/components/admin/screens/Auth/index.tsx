@@ -65,6 +65,7 @@ const AuthLogin: React.FC = () => {
         roleName: loginData.data.role,
         phone: loginData.data.phone,
         fullName: loginData.data.fullName,
+        id: loginData.data._id,
       });
       formLogin.resetFields();
       if (loginData.data.role === 'admin') navigate('/admin/users');
@@ -79,6 +80,7 @@ const AuthLogin: React.FC = () => {
         roleName: signData.data.role,
         phone: signData.data.phone,
         fullName: signData.data.fullName,
+        id: signData.data._id,
       });
       formLogin.resetFields();
       navigate('/');

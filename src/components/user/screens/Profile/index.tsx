@@ -38,6 +38,7 @@ const Profile: React.FC = () => {
         fullName: user.data.fullName,
         phone: user.data.phone,
         roleName: user.data.role,
+        id: user.data._id,
       });
       navigate('/');
     }

@@ -14,6 +14,8 @@ export type TBookItem = {
   description: string;
   videos: string[];
   tags: TTagItem[];
+  isFavourite: boolean;
+  isActive: boolean;
 };
 export type TBookChange = {
   _id: string;

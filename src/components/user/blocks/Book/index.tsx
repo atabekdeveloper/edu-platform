@@ -1,10 +1,14 @@
 import { Button, Skeleton } from 'antd';
 import React from 'react';
-import { IoBookmarkOutline } from 'react-icons/io5';
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Img } from 'react-image';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'src/hooks';
-import { useCreateUserBookMutation, useGetBooksQuery } from 'src/services/index.api';
+import {
+  useCreateUserBookMutation,
+  useDeleteUserBookMutation,
+  useGetBooksQuery,
+} from 'src/services/index.api';
 import { useAuthPersistStore, useFilterBookStore } from 'src/store';
 
 import { useTranslation } from 'react-i18next';
@@ -23,6 +27,7 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
   const { t } = useTranslation();
 
   const { mutate: createUserBook } = useCreateUserBookMutation();
+  const { mutate: deleteUserBook } = useDeleteUserBookMutation();
 
   const token = useAuthPersistStore((state) => state.accessToken);
 
@@ -72,9 +77,19 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
                 {t('minutely')}
               </Button>
               <button
-                onClick={() => (token ? createUserBook({ bookId: el._id }) : navigate('/login'))}
+                onClick={() =>
+                  token
+                    ? el.isFavourite
+                      ? deleteUserBook(el._id)
+                      : createUserBook({ bookId: el._id })
+                    : navigate('/login')
+                }
               >
-                <IoBookmarkOutline size={24} />
+                {el.isFavourite ? (
+                  <IoBookmark className="text-primary" size={24} />
+                ) : (
+                  <IoBookmarkOutline size={24} />
+                )}
               </button>
             </div>
           </li>

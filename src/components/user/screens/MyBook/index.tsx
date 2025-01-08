@@ -16,12 +16,14 @@ const MyBook: React.FC = () => {
   const { t } = useTranslation();
 
   const token = useAuthPersistStore((state) => state.accessToken);
+  const userId = useAuthPersistStore((state) => state.id);
 
   const navigate = useNavigate();
 
   const { data: books, isLoading } = useGetUserBooksQuery({
     page: 1,
     count: 100,
+    _id: `${userId}`,
   });
   return (
     <section className="container">

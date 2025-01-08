@@ -4,11 +4,13 @@ import { persist } from 'zustand/middleware';
 import { TRoleItemTypes } from 'src/services/index.types';
 
 interface IAuthPerisistState {
+  id: string | null;
   accessToken: string | null;
   roleName: TRoleItemTypes | null;
   phone: string | null;
   fullName: string | null;
   signIn: (tokens: {
+    id: string;
     accessToken: string;
     roleName: TRoleItemTypes;
     phone: string;
@@ -20,13 +22,15 @@ interface IAuthPerisistState {
 export const useAuthPersistStore = create(
   persist<IAuthPerisistState>(
     (set) => ({
+      id: null,
       accessToken: '',
       roleName: null,
       phone: '',
       fullName: '',
-      signIn: ({ accessToken, roleName, phone, fullName }) =>
-        set({ accessToken, roleName, phone, fullName }),
-      signOut: () => set({ accessToken: null, roleName: null, phone: null, fullName: null }),
+      signIn: ({ accessToken, roleName, phone, fullName, id }) =>
+        set({ accessToken, roleName, phone, fullName, id }),
+      signOut: () =>
+        set({ accessToken: null, roleName: null, phone: null, fullName: null, id: null }),
     }),
     {
       name: 'token',
