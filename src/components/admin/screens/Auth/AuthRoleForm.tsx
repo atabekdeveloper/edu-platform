@@ -81,7 +81,7 @@ const AuthRoleForm: React.FC<IAuthRoleForm> = ({ setActiveIndex, role, setRole }
         ))}
       </ul>
       <div className="pt-2 text-xl text-center">
-        <span className="text-[#8692A6] pr-2">{t('accaunt')}</span>
+        <span className="text-[#8692A6] pr-2">{t('account')}</span>
         <span
           className="cursor-pointer text-primary"
           onClick={() => setActiveIndex((prev) => prev - 1)}

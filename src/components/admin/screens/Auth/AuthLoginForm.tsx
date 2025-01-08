@@ -30,9 +30,9 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({ form, onFinish, isLoading, se
         <button type="button" onClick={() => setActiveIndex((prev) => prev + 1)}>
           <FiArrowRight size={24} />
         </button>
-        <h2 className="text-2xl lg:text-3xl">{t('helloAgaing')}</h2>
+        <h2 className="text-2xl lg:text-3xl">{t('helloAgain')}</h2>
       </div>
-      <p className="mb-4 text-lg text-[#4e4e4e]">{t('helloAgaingDesc')}</p>
+      <p className="mb-4 text-lg text-[#4e4e4e]">{t('helloAgainDesc')}</p>
       <Form.Item
         name="phone"
         label={<h4 className="text-[#696F79] pb-1 text-base">{t('phone')}</h4>}

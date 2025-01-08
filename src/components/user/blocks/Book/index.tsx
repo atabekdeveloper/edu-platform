@@ -45,7 +45,7 @@ const Book: React.FC<IBook> = ({ title: bookTitle, id }) => {
     title: debounceTitle,
   });
   return (
-    <article className="pb-5">
+    <article className="pb-5" hidden={!(isSuccess && books.data.length)}>
       <h2 className="title" hidden={!(isSuccess && books.data.length)}>
         {bookTitle}
       </h2>
