@@ -8,7 +8,7 @@ interface IGlobalHead {
 
 const GlobalHead: React.FC<IGlobalHead> = ({ title, childs, filterChilds }) => (
   <div className="flex flex-col gap-2">
-    <div className="flex items-center justify-between gap-5">
+    <div className="flex flex-wrap items-center justify-between gap-5">
       <h3 className="text-xl font-medium">{title}</h3>
       <ul className="flex items-center gap-3">
         {childs?.map((el, i) => (

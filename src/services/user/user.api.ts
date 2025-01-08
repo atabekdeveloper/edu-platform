@@ -14,7 +14,7 @@ import {
   fetchUpdatePasswordUserAdmin,
 } from './user.services';
 
-const useGetUsersQuery = (params: TGetParamsChange) =>
+const useGetUsersQuery = (params: TGetParamsChange & { role: string; isActive: boolean | null }) =>
   useQuery({
     queryFn: () => fetchGetUsers(params),
     queryKey: ['user', ...Object.values(params)],

@@ -6,7 +6,7 @@ import { TUserChange, TUserEditChange, TUserItem } from './user.types';
 
 export const fetchGetUsers = async (params: TGetParamsChange): Promise<SR<TUserItem>> => {
   const res = await api.get('/user/user', {
-    params: { count: 10, page: params.page },
+    params: { count: 10, page: params.page, ...removeProperties(params, ['role', 'isActive']) },
   });
   return res.data;
 };
